@@ -201,7 +201,7 @@
             </script>
           </td>
             <td width="67%" valign="top">
-              <papertitle>Sp<sup>2</sup>360: Sparse-view 360 Scene Reconstruction using Cascaded 2D Diffusion Priors
+              <papertitle>Sp<sup>2</sup>360: Sparse-view 360&deg Scene Reconstruction using Cascaded 2D Diffusion Priors
               </papertitle><br>
               <strong>Soumava Paul</strong>,
               <a href="https://scholar.google.com/citations?user=y6VGjBIAAAAJ&hl=de" target="_blank">Christopher Wewer</a>,
@@ -218,7 +218,7 @@
                 <a href="https://github.com/mvp18/scene-generation" target="_blank"><font color="red">Code</font></a> 
                 <br>
 
-                <p align="justify"> <i id="sp2360abs">We aim to tackle sparse-view reconstruction of a 360 3D scene using priors from latent diffusion models (LDM). The sparse-view 
+                <p align="justify"> <i id="sp2360abs">We aim to tackle sparse-view reconstruction of a 360&deg 3D scene using priors from latent diffusion models (LDM). The sparse-view 
                 setting is ill-posed and underconstrained, especially for scenes where the camera rotates 360 degrees around a point, as no visual information is available beyond 
                 some frontal views focused on the central object(s) of interest. In this work, we show that pretrained 2D diffusion models can strongly improve the reconstruction 
                 of a scene with low-cost fine-tuning. Specifically, we present SparseSplat360 (Sp2360), a method that employs a cascade of in-painting and artifact removal models 
@@ -226,8 +226,8 @@
                 over NeRF-based implicit representations. We propose an iterative update strategy to fuse generated pseudo novel views with existing 3D Gaussians fitted to the 
                 initial sparse inputs. As a result, we obtain a multi-view consistent scene representation with details coherent with the observed inputs. Our evaluation on the 
                 challenging Mip-NeRF360 dataset shows that our proposed 2D to 3D distillation algorithm considerably improves the performance of a regularized version of 3DGS 
-                adapted to a sparse-view setting and outperforms existing sparse-view reconstruction methods in 360 scene reconstruction. Qualitatively, our method generates 
-                entire 360 scenes from as few as 9 input views, with a high degree of foreground and background detail.</i></p>
+                adapted to a sparse-view setting and outperforms existing sparse-view reconstruction methods in 360&deg scene reconstruction. Qualitatively, our method generates 
+                entire 360&deg scenes from as few as 9 input views, with a high degree of foreground and background detail.</i></p>
 
       <pre xml:space="preserve">
         @article{paul2024sp2360,
@@ -238,6 +238,8 @@
         }        
       }</pre>
                 </div>
+                <p><i>Synthesizing novel views with a combination of diffusion-based image inpainting and artifact removal helps reconstruct complex 360&deg scenes 
+                  without 3D-aware pretraining of a diffusion model on million-scale multiview datasets. </i></p>
             </td>
         </tr>
       </table>
@@ -271,7 +273,7 @@
                 Such criterion is often restrictive, and thus in this work, for the first time, we explore the generalized retrieval problem in a data-efficient 
                 manner. Specifically, we aim to generalize any pre-trained cross-domain retrieval network towards any unknown query domain/category, by means of 
                 adapting the model on the test data leveraging self-supervised learning techniques. Toward that goal, we explored different self-supervised loss 
-                functions~(for example, RotNet, JigSaw, Barlow Twins, etc.) and analyze their effectiveness for the same. Extensive experiments demonstrate the 
+                functions (for example, RotNet, JigSaw, Barlow Twins, etc.) and analyze their effectiveness for the same. Extensive experiments demonstrate the 
                 proposed approach is simple, easy to implement, and effective in handling data-efficient UCDR.</i></p>
 
       <pre xml:space="preserve">
@@ -285,6 +287,7 @@
       }
       }</pre>
                 </div>
+                <p><i>Test-time training heuristics weaken the assumption of training data across multiple domains for universal cross-domain retrieval.</i></p>
             </td>
         </tr>
       </table>
@@ -336,6 +339,8 @@
       }
       }</pre>
                 </div>
+                <p><i>Semantic domain-invariant learning of latent space embeddings prepares an image retrieval model for a challenging cross-domain retrieval scenario 
+                  where test data can belong to classes or domains unseen during training.</i></p>
             </td>
         </tr>
       </table>
@@ -387,6 +392,8 @@
       }
       }</pre>
                 </div>
+                <p><i>Knowledge Distillation with state-of-the-art voice detection models as teachers improves performance of student models upto 1000x 
+                smaller in parameter count.</i></p>
             </td>
         </tr>
       </table>
@@ -436,6 +443,7 @@
       }
       }</pre>
                 </div>
+                <p><i>Learning image attributes with grouped Adversarial Learning (gAL) reduces effects of target shift in zero-shot learning algorithms..</i></p>
             </td>
         </tr>
       </table>
@@ -484,6 +492,8 @@
       }
       }</pre>
               </div>
+              <p><i>Downscaling high resolution Chest X-Rays using an autoencoder leads to superior retention of important pathological features for thoracic disease 
+                classification over usual interpolation techniques.</i></p>
             </td>
         </tr>
       </table>
@@ -555,7 +565,7 @@
           <td width="75%" valign="center" id="Teaching">
             <sectionheading>&nbsp;&nbsp;Teaching</sectionheading>
             <ul>
-              <li>Tutor, <a href="https://www.mia.uni-saarland.de/Teaching/dic23.shtml" target="_blank">Differential Equations in Image Processing and Computer Vision </a>
+              <li><strong>[Teaching Award]</strong> Tutor, <a href="https://www.mia.uni-saarland.de/Teaching/dic23.shtml" target="_blank">Differential Equations in Image Processing and Computer Vision </a>
               (Winter Term 2023-24) by <a href="https://www.mia.uni-saarland.de/peter/index.shtml" target="_blank">Dr. Pascal Peter (UdS)</a></li>
               <li>Teaching Assistant, <a href="https://www.mpi-inf.mpg.de/departments/computer-vision-and-machine-learning/teaching/courses-1/ss-2023-high-level-computer-vision" target="_blank">High-Level Computer Vision</a> 
                 (Summer Term 2023) 
@@ -572,7 +582,7 @@
             <sectionheading>&nbsp;&nbsp;Misc</sectionheading>
             <ul>
             <li>In my downtime, I like to play tennis, pingpong, and football.</li>
-            <li>I speak English, Bengali, and Hindi natively and beginner-level German.</li>
+            <li>I speak English, Bengali, and Hindi, and beginner-level German.</li>
             <li>On weekends, I follow the <a href="https://www.youtube.com/watch?v=mIR3mTrjLOI" target="_blank">English Premier League</a> and overthink which players to pick for my 
               <a href="https://fantasy.premierleague.com/entry/340409/history" target="_blank">fantasy football team</a>. My favorite footballers of all-time
               are <a href="https://www.youtube.com/watch?v=C-CefuZ6h1k" target="_blank">Son Heung-min</a> and <a href="https://www.youtube.com/watch?v=RDsxKXa0PbA" target="_blank">Zlatan Ibrahimović</a>.
@@ -597,7 +607,7 @@
           <td style="padding:0px">
             <br>
             <p style="text-align:right;font-size:small;">
-              <a href="https://jonbarron.info/" target="_blank">Imitation is the most sincere form of flattery</a>
+              <a href="https://github.com/jonbarron/website" target="_blank">Imitation is the most sincere form of flattery</a>
             </p>
           </td>
         </tr>
