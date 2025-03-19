@@ -181,6 +181,53 @@
       <div><em>* denotes equal contribution</em></div>
 
       <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+        <tr bgcolor="#ffffd0">
+          <td style="padding:20px;width:25%;vertical-align:middle">
+            <img src="pubs/dg_gscenes.jpg" width=300 height=170 style="border-style: none">
+          </td>
+            <td width="67%" valign="top">
+              <papertitle>Gaussian Scenes: Pose-Free Sparse-View Scene Reconstruction using Depth-Enhanced Diffusion Priors</papertitle><br>
+              <strong>Soumava Paul</strong>,
+              <a href="https://toshi2k2.github.io/" target="_blank">Prakhar Kaushik</a>,
+              <a href="https://www.cs.jhu.edu/~ayuille/" target="_blank">Alan Yuille</a>,
+              <br>
+              <em>arXiv preprint</em>
+              <br>
+
+                <div class="paper" id="gscenes">
+                <a href="javascript:toggleblock('gscenesabs')"><font color="red">abstract</font></a> / 
+                <a shape="rect" href="javascript:togglebib('gscenes')" class="togglebib"><font color="red">bibtex</font></a> /
+                <a href="https://arxiv.org/abs/2411.15966" target="_blank"><font color="red">arXiv</font></a> / 
+                <a href="https://gaussianscenes.github.io/" target="_blank"><font color="red">project page</font></a>
+                <br>
+
+                <p align="justify"> <i id="gscenesabs">In this work, we introduce a generative approach for pose-free reconstruction of 360&deg scenes from a 
+                  limited number of uncalibrated 2D images. Pose-free scene reconstruction from incomplete, unposed observations is usually regularized with 
+                  depth estimation or 3D foundational priors. While recent advances have enabled sparse-view reconstruction of unbounded scenes with known 
+                  camera poses using view conditioned diffusion priors, these methods cannot be directly adapted for the pose-free setting when ground truth
+                  COLMAP poses are not available during evaluation. To address this, we propose an RGBD diffusion model designed to inpaint missing details 
+                  and remove artifacts in novel view renders and depth maps of a 3D scene. We introduce context and geometry conditioning using FiLM modulation 
+                  layers as a lightweight alternative to cross-attention and also propose a novel confidence measure for Gaussian representations to allow 
+                  for better detection of these artifacts. By progressively integrating these novel views in a Gaussian-SLAM-inspired process, we achieve 
+                  a multi-view-consistent Gaussian representation. Evaluations on the MipNeRF360 and DL3DV-10K benchmark dataset demonstrate that our method 
+                  surpasses existing pose-free techniques and performs competitively with state-of-the-art posed reconstruction methods in complex 360&deg scenes.
+                </i></p>
+
+      <pre xml:space="preserve">
+        @article{paul2024gaussian,
+          title={Gaussian Scenes: Pose-Free Sparse-View Scene Reconstruction using Depth-Enhanced Diffusion Priors},
+          author={Paul, Soumava and Kaushik, Prakhar and Yuille, Alan},
+          journal={arXiv preprint arXiv:2411.15966},
+          year={2024}
+        }
+      </pre>
+                </div>
+                <p><i>A generative solution for reconstructing 360&deg scenes from sparse unposed images. </i></p>
+            </td>
+        </tr>
+      </table>
+
+      <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
         <tr onmouseout="sp2360_stop()" onmouseover="sp2360_start()" bgcolor="#ffffd0">
           <td style="padding:20px;width:25%;vertical-align:middle">
             <div class="one">
@@ -628,8 +675,11 @@
 hideallbibs();
 </script>
 <script xml:space="preserve" language="JavaScript">
+  hideblock('gscenesabs');
+</script>
+<script xml:space="preserve" language="JavaScript">
   hideblock('sp2360abs');
-  </script>
+</script>
 <script xml:space="preserve" language="JavaScript">
 hideblock('ucdrabs');
 </script>
