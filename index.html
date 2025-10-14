@@ -1,75 +1,316 @@
 <!DOCTYPE HTML>
 
+<html lang="en">
+
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="generator" content="HTML Tidy for Linux/x86 (vers 11 February 2007), see www.w3.org">
   
   <style type="text/css">
-  /* Design Credits: Jon Barron, Deepak Pathak and Saurabh Gupta*/
-  a {
-  color: #1772d0;
-  text-decoration:none;
-  }
-  a:focus, a:hover {
-  color: #f09228;
-  text-decoration:none;
-  }
-  body,td,th {
-     font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
-     font-size: 14px;
-     font-weight: 400
-  }
-  heading {
-     font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
-     font-size: 22px;
-     font-weight: 1000
-  }
-  papertitle {
+:root {
+  color-scheme: light;
+  --bg-color: #ffffff;
+  --surface-color: #ffffff;
+  --text-color: #1f1f1f;
+  --muted-text-color: #333333;
+  --link-color: #1772d0;
+  --link-hover-color: #f09228;
+  --accent-color: #4169e1;
+  --highlight-background: #ffffd0;
+  --border-color: #dddddd;
+}
+
+/* Design Credits: Jon Barron, Deepak Pathak and Saurabh Gupta*/
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+a:focus,
+a:hover {
+  color: var(--link-hover-color);
+  text-decoration: none;
+}
+
+html,
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  line-height: 1.6;
+}
+
+body,
+td,
+th {
+  font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-color);
+}
+
+heading {
+  font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
+  font-size: 22px;
+  font-weight: 1000;
+  display: block;
+  margin: 0 0 12px;
+}
+
+papertitle {
   font-family: 'Lato', Verdana, Helvetica, sans-serif;
   font-size: 14px;
   font-weight: 600;
-  color: #4169E1
+  color: var(--accent-color);
+}
+
+strong {
+  font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-color);
+}
+
+strongred {
+  font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
+  color: red;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+sectionheading {
+  font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-color);
+  display: block;
+  margin: 0 0 12px;
+}
+
+pageheading {
+  font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--text-color);
+  display: block;
+  margin: 0 0 16px;
+}
+
+.scrollable-list {
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+span.highlight {
+  background-color: var(--highlight-background);
+}
+
+pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 12px;
+  overflow-x: auto;
+  font-size: 12px;
+  margin: 12px 0;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+tr[bgcolor],
+td[bgcolor] {
+  background-color: var(--highlight-background) !important;
+}
+
+.one {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 300 / 196;
+  margin: 0 auto;
+}
+
+.two {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -webkit-transition: opacity 0.2s ease-in-out;
+}
+
+.one img,
+.one video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  gap: 16px;
+  margin: 16px auto 0;
+  padding: 0 20px;
+}
+
+.header-link {
+  color: var(--text-color);
+  font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.header-link:hover,
+.header-link:focus {
+  color: var(--link-hover-color);
+}
+
+.header-link:focus-visible {
+  outline: 2px solid var(--link-hover-color);
+  outline-offset: 3px;
+}
+
+table[width="900"] {
+  width: min(100%, 900px);
+  margin: 0 auto;
+  border-collapse: separate;
+}
+
+table[width="900"] > tbody > tr > td {
+  padding: 0;
+}
+
+table[width="100%"][align="center"] {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.theme-toggle-button {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  color: var(--text-color);
+  cursor: pointer;
+  font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
+  font-size: 16px;
+  height: 32px;
+  width: 32px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle-button:hover,
+.theme-toggle-button:focus {
+  background-color: var(--link-color);
+  border-color: var(--link-color);
+  color: #ffffff;
+  outline: none;
+}
+
+.theme-toggle-button:focus-visible {
+  box-shadow: 0 0 0 2px var(--highlight-background);
+  outline: none;
+}
+
+@media (max-width: 900px) {
+  body,
+  td,
+  th {
+    font-size: 16px;
   }
 
-  strong {
-     font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
-     font-size: 14px;
-     font-weight: 800
-  }
-  strongred {
-     font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
-     color: 'red' ;
-     font-size: 14px;
-     font-weight: 800
-  }
+  heading,
   sectionheading {
-     font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
-     font-size: 22px;
-     font-weight: 600
+    font-size: 20px;
   }
+
   pageheading {
-     font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
-     font-size: 36px;
-     font-weight: 400
+    font-size: 30px;
   }
+
+  .header-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 12px auto 0;
+    padding: 0 16px;
+  }
+
+  .header-link {
+    font-size: 15px;
+  }
+
+  table[width="900"] {
+    width: 100%;
+  }
+
+  table[width="900"] > tbody > tr,
+  table[width="100%"][cellpadding="20"] tr {
+    display: block;
+  }
+
+  table[width="900"] > tbody > tr > td,
+  table[width="100%"][cellpadding="20"] td {
+    display: block;
+    width: 100% !important;
+    padding: 16px 18px !important;
+  }
+
+  table[width="100%"][cellpadding="20"] td + td {
+    margin-top: 16px;
+  }
+
   .scrollable-list {
-    max-height: 120px;
-    overflow-y: auto;
+    max-height: none;
   }
-  span.highlight {
-  background-color: #ffffd0;
-  }    
+
   .one {
-    width: 300px;
-    height: 196px;
-    position: relative;
+    max-width: 100%;
   }
-  .two {
-    width: 300px;
-    height: 196px;
-    position: absolute;
-    transition: opacity .2s ease-in-out;
-    -moz-transition: opacity .2s ease-in-out;
-    -webkit-transition: opacity .2s ease-in-out;
+}
+
+:root.dark-mode {
+  color-scheme: dark;
+  --bg-color: #121212;
+  --surface-color: #1f1f1f;
+  --text-color: #f5f5f5;
+  --muted-text-color: #cccccc;
+  --link-color: #8ab4f8;
+  --link-hover-color: #fdd663;
+  --accent-color: #a7c5ff;
+  --highlight-background: rgba(255, 214, 102, 0.2);
+  --border-color: #333333;
+}
+
+table {
+  background-color: var(--surface-color);
+}
+
+td,
+th {
+  background-color: inherit;
 }
   </style>
 
@@ -89,6 +330,12 @@
 </head>
 
 <body>
+  <div class="header-actions">
+    <!-- <a class="header-link" href="blogs/index.html">Blog</a> -->
+    <button id="theme-toggle-button" class="theme-toggle-button" type="button" aria-pressed="false" aria-label="Switch to dark mode">
+      <i class="fas fa-moon" aria-hidden="true"></i>
+    </button>
+  </div>
   <table width="900" border="0" align="center" border="0" cellspacing="0" cellpadding="20">
     <tr><td>
 
@@ -101,14 +348,15 @@
           </font>
           <script>
           emailScramble = new scrambledString(document.getElementById('email'),
-                'emailScramble', 'soumava2016@gmail.com',
+                'emailScramble', 'spaul27@jh.edu',
                 [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]);
           </script>
         </p>
 
         <td style="padding:2.5%;width:63%;vertical-align:middle">
           <p>Hi, visitor! This is Soumava and you have reached my small corner on the World Wide Web. I am a first-year Ph.D. student in the 
-            <a href="https://ccvl.jhu.edu/" target="_blank">CCVL</a> lab at <a href="https://www.cs.jhu.edu/">Johns Hopkins University</a>. 
+            <a href="https://ccvl.jhu.edu/" target="_blank">CCVL</a> lab at <a href="https://www.cs.jhu.edu/">Johns Hopkins University</a>, advised by
+            Bloomberg Distinguished Professor <a href="https://www.cs.jhu.edu/~ayuille/" target="_blank">Alan Yuille</a>. 
             I completed my MSc. in 
             <a href="https://saarland-informatics-campus.de/en/msc-visual-computing/" target="_blank">Visual Computing</a> at 
             <a href="https://www.uni-saarland.de/" target="_blank">Universität des Saarlandes</a>. My master thesis was on sparse-view 360&deg scene reconstruction using 2D 
@@ -203,7 +451,7 @@
                 <a shape="rect" href="javascript:togglebib('gscenes')" class="togglebib"><font color="red">bibtex</font></a> /
                 <a href="https://openreview.net/forum?id=yp1CYo6R0r" target="_blank"><font color="red">proceedings</font></a> /
                 <a href="https://arxiv.org/abs/2411.15966" target="_blank"><font color="red">arXiv</font></a> / 
-                <a href="https://github.com/mvp18/gscenes" target="_blank"><font color="red">code</font></a> /
+                <a href="https://github.com/mvp18/gaussian-scenes" target="_blank"><font color="red">code</font></a> /
                 <a href="https://gaussianscenes.github.io/" target="_blank"><font color="red">project page</font></a>
                 <br>
 
@@ -508,7 +756,7 @@
 
       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
         <tr><td style="padding:10px;width:100%;vertical-align:middle">
-          <heading>Side Hustles</heading>
+          <heading>Side Quests</heading>
         </td></tr>
       </tbody></table>
       
@@ -630,6 +878,73 @@
 
     </td></tr>
   </table>
+<script>
+  (function () {
+    var storageKey = 'preferred-color-scheme';
+    var toggleButton = document.getElementById('theme-toggle-button');
+    if (!toggleButton) {
+      return;
+    }
+
+    function updateToggleButton(theme) {
+      var isDark = theme === 'dark';
+      toggleButton.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      toggleButton.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+      toggleButton.innerHTML = '<i class="fas ' + (isDark ? 'fa-sun' : 'fa-moon') + '" aria-hidden="true"></i>';
+    }
+
+    function applyTheme(theme) {
+      var isDark = theme === 'dark';
+      document.documentElement.classList.toggle('dark-mode', isDark);
+      updateToggleButton(theme);
+    }
+
+    function getStoredPreference() {
+      try {
+        return localStorage.getItem(storageKey);
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function setStoredPreference(theme) {
+      try {
+        localStorage.setItem(storageKey, theme);
+      } catch (error) {
+        /* no-op */
+      }
+    }
+
+    var storedPreference = getStoredPreference();
+    if (!storedPreference) {
+      storedPreference = 'light';
+    }
+
+    applyTheme(storedPreference);
+
+    toggleButton.addEventListener('click', function () {
+      var nextTheme = document.documentElement.classList.contains('dark-mode') ? 'light' : 'dark';
+      applyTheme(nextTheme);
+      setStoredPreference(nextTheme);
+    });
+
+    if (window.matchMedia) {
+      var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      var mediaListener = function (event) {
+        if (getStoredPreference()) {
+          return;
+        }
+        applyTheme(event.matches ? 'dark' : 'light');
+      };
+
+      if (typeof mediaQuery.addEventListener === 'function') {
+        mediaQuery.addEventListener('change', mediaListener);
+      } else if (typeof mediaQuery.addListener === 'function') {
+        mediaQuery.addListener(mediaListener);
+      }
+    }
+  })();
+</script>
 <script xml:space="preserve" language="JavaScript">
 hideallbibs();
 </script>
