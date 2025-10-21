@@ -304,6 +304,15 @@ table[width="100%"][align="center"] {
   --border-color: #333333;
 }
 
+.joint-authors {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.joint-authors .joint-author {
+  display: inline-flex;
+}
+
 table {
   background-color: var(--surface-color);
 }
@@ -379,12 +388,17 @@ th {
           </p>
 
           <p style="text-align:center">
-            <a style="margin: 0 15px 0 0" href="data/CV_web.pdf" target="_blank"><i class="ai ai-cv" style="font-size:1.3rem"></i></a>
             <a style="margin: 0 15px 0 0" href="https://github.com/mvp18" target="_blank"><i class="fab fa-github"  style="font-size:1.3rem"></i></a>
             <a style="margin: 0 15px 0 0" href="https://scholar.google.com/citations?user=DK7mUVEAAAAJ&hl=en" target="_blank">
               <i class="ai ai-google-scholar" style="font-size:1.3rem"></i></a>
             <a style="margin: 0 15px 0 0" href="https://www.linkedin.com/in/mvp18/" target="_blank"><i class="fab fa-linkedin" style="font-size:1.3rem"></i></a>
-            <a style="margin: 0 0 0 0" href="https://twitter.com/__mvp18__" target="_blank"><i class="fab fa-twitter" style="font-size:1.3rem"></i></a>
+            <a style="margin: 0 15px 0 0" href="https://twitter.com/__mvp18__" target="_blank"><i class="fab fa-twitter" style="font-size:1.3rem"></i></a>
+            <a style="margin: 0 0 0 0" href="https://bsky.app/profile/mvp18.bsky.social" target="_blank" aria-label="Bluesky">
+              <svg style="width:1.3rem;height:1.3rem;display:inline-block;vertical-align:middle" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <title>Bluesky</title>
+                <path fill="currentColor" d="M5.202 2.857C7.954 4.922 10.913 9.11 12 11.358c1.087-2.247 4.046-6.436 6.798-8.501C20.783 1.366 24 .213 24 3.883c0 .732-.42 6.156-.667 7.037-.856 3.061-3.978 3.842-6.755 3.37 4.854.826 6.089 3.562 3.422 6.299-5.065 5.196-7.28-1.304-7.847-2.97-.104-.305-.152-.448-.153-.327 0-.121-.05.022-.153.327-.568 1.666-2.782 8.166-7.847 2.97-2.667-2.737-1.432-5.473 3.422-6.3-2.777.473-5.899-.308-6.755-3.369C.42 10.04 0 4.615 0 3.883c0-3.67 3.217-2.517 5.202-1.026"/>
+              </svg>
+            </a>
           </p>
         </td>
         <td style="padding:2.5%;width:40%;max-width:40%">
@@ -422,7 +436,7 @@ th {
           <tr><td style="padding:10px;width:100%;vertical-align:middle">
             <heading>Research</heading>
             <p>
-              I am interested in computer vision, specifically topics at the intersection of static and dynamic scene representations, generative modelling and 
+              I am interested in computer vision, specifically topics at the intersection of 3D reconstruction, metrics, parts, materials, generative modelling and 
               physical reasoning. In earlier years, my research spanned topics in domain generalization, zero-shot learning, music information retrieval and medical imaging. 
               Representative papers are <span class="highlight">highlighted</span>.
             </p>
@@ -452,7 +466,8 @@ th {
                 <a href="https://openreview.net/forum?id=yp1CYo6R0r" target="_blank"><font color="red">proceedings</font></a> /
                 <a href="https://arxiv.org/abs/2411.15966" target="_blank"><font color="red">arXiv</font></a> / 
                 <a href="https://github.com/mvp18/gaussian-scenes" target="_blank"><font color="red">code</font></a> /
-                <a href="https://gaussianscenes.github.io/" target="_blank"><font color="red">project page</font></a>
+                <a href="https://gaussianscenes.github.io/" target="_blank"><font color="red">project page</font></a> /
+                <a href="https://youtu.be/vnNHVHeJgCM" target="_blank"><font color="red">video</font></a>
                 <br>
 
                 <p align="justify"> <i id="gscenesabs">In this work, we introduce a generative approach for \textit{pose-free} (without camera parameters) reconstruction of 
@@ -549,15 +564,17 @@ th {
         </tr>
       </table>
 
-      <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+      <table class="paper-entry joint-cycle" data-joint-cycle="ucdr" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
         <tr bgcolor="#ffffd0">
           <td style="padding:20px;width:25%;vertical-align:middle">
             <img src="pubs/snmpnet.jpg" width=300 height=170 style="border-style: none">
           </td>
             <td width="67%" valign="top">
               <papertitle>Universal Cross-Domain Retrieval: Generalizing Across Classes and Domains</papertitle><br>
-              <strong>Soumava Paul*</strong>,
-              <a href="https://dblp.org/pid/214/9199.html" target="_blank">Titir Dutta</a>*,
+              <span class="joint-authors" data-joint-container="ucdr">
+                <span class="joint-author" data-group="ucdr"><strong>Soumava Paul*</strong>,&nbsp;</span>
+                <span class="joint-author" data-group="ucdr"><a href="https://dblp.org/pid/214/9199.html" target="_blank">Titir Dutta</a>*,&nbsp;</span>
+              </span>
               <a href="https://scholar.google.com/citations?user=xtgxW9gAAAAJ&hl=en" target="_blank">Soma Biswas</a>
               <br>
               <em>ICCV 2021</em>
@@ -654,15 +671,17 @@ th {
         </tr>
       </table>
 
-      <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+      <table class="paper-entry joint-cycle" data-joint-cycle="gal" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
         <tr>
           <td style="padding:20px;width:25%;vertical-align:middle">
             <img src="pubs/cheetah.png" width=300 height=264 style="border-style: none">
           </td>
             <td width="67%" valign="top">
               <papertitle>Addressing Target Shift in Zero-shot Learning using Grouped Adversarial Learning</papertitle><br>
-              <a href="https://scholar.google.co.in/citations?user=FZ4YVdcAAAAJ&hl=en" target="_blank">Saneem Ahmed Chemmengath*</a>,
-              <strong>Soumava Paul*</strong>,
+              <span class="joint-authors" data-joint-container="gal">
+                <span class="joint-author" data-group="gal"><a href="https://scholar.google.co.in/citations?user=FZ4YVdcAAAAJ&hl=en" target="_blank">Saneem Ahmed Chemmengath*</a>,&nbsp;</span>
+                <span class="joint-author" data-group="gal"><strong>Soumava Paul*</strong>,&nbsp;</span>
+              </span>
               <a href="https://scholar.google.co.in/citations?user=zEnqhxkAAAAJ&hl=en" target="_blank">Samarth Bharadwaj</a>,
               <a href="https://scholar.google.co.in/citations?user=kB9KbxUAAAAJ&hl=en" target="_blank">Suranjana Samanta</a>,
               <a href="https://scholar.google.com/citations?user=vXDP-uEAAAAJ&hl=en" target="_blank">Karthik Sankaranarayanan</a>
@@ -704,14 +723,18 @@ th {
         </tr>
       </table>
 
-      <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+      <table class="paper-entry joint-cycle" data-joint-cycle="aecnn" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
         <tr>
           <td style="padding:20px;width:25%;vertical-align:middle">
             <img src="pubs/3234AE-CNN__00015400_001_heatmap.png" width=300 height=264 style="border-style: none">
           </td>
             <td width="67%" valign="top">
               <papertitle>Jointly Learning Convolutional Representations to Compress Radiological Images and Classify Thoracic Diseases in the Compressed Domain</papertitle><br>
-              Ekagra Ranjan*, <strong>Soumava Paul*</strong>, Siddharth Kapoor, 
+              <span class="joint-authors" data-joint-container="aecnn">
+                <span class="joint-author" data-group="aecnn">Ekagra Ranjan*,&nbsp;</span>
+                <span class="joint-author" data-group="aecnn"><strong>Soumava Paul*</strong>,&nbsp;</span>
+              </span>
+              Siddharth Kapoor, 
               <a href="https://scholar.google.com/citations?hl=en&authuser=1&user=4ignEUcAAAAJ" target="_blank">Aupendu Kar</a>, 
               <a href="https://scholar.google.com/citations?user=hFUdp_EAAAAJ&hl=en" target="_blank">Ramanathan Sethuraman</a>,
               <a href="https://scholar.google.com/citations?user=x-0vLSsAAAAJ&hl=en" target="_blank">Debdoot Sheet</a>
@@ -878,6 +901,76 @@ th {
 
     </td></tr>
   </table>
+<script>
+  (function () {
+    var rotationDelay = 800;
+    var groups = {};
+    var tables = document.querySelectorAll('.joint-cycle[data-joint-cycle]');
+
+    tables.forEach(function (table) {
+      var groupName = table.getAttribute('data-joint-cycle');
+      var container = document.querySelector('[data-joint-container="' + groupName + '"]');
+      if (!container) {
+        return;
+      }
+      var authorNodes = Array.from(container.querySelectorAll('.joint-author'));
+      if (authorNodes.length < 2) {
+        return;
+      }
+
+      groups[groupName] = {
+        container: container,
+        originalOrder: authorNodes.slice(),
+        nodes: authorNodes.slice(),
+        intervalId: null
+      };
+
+      function rotate() {
+        var data = groups[groupName];
+        if (!data || data.nodes.length < 2) {
+          return;
+        }
+        var first = data.nodes.shift();
+        data.container.appendChild(first);
+        data.nodes.push(first);
+      }
+
+      function startRotation() {
+        var data = groups[groupName];
+        if (!data || data.intervalId) {
+          return;
+        }
+        data.nodes = Array.from(data.container.querySelectorAll('.joint-author'));
+        rotate();
+        data.intervalId = setInterval(rotate, rotationDelay);
+      }
+
+      function stopRotation() {
+        var data = groups[groupName];
+        if (!data) {
+          return;
+        }
+        if (data.intervalId) {
+          clearInterval(data.intervalId);
+          data.intervalId = null;
+        }
+        data.originalOrder.forEach(function (node) {
+          data.container.appendChild(node);
+        });
+        data.nodes = data.originalOrder.slice();
+      }
+
+      table.addEventListener('mouseenter', startRotation);
+      table.addEventListener('mouseleave', stopRotation);
+      table.addEventListener('focusin', startRotation);
+      table.addEventListener('focusout', function (event) {
+        if (!table.contains(event.relatedTarget)) {
+          stopRotation();
+        }
+      });
+    });
+  })();
+</script>
 <script>
   (function () {
     var storageKey = 'preferred-color-scheme';
