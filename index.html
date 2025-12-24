@@ -129,6 +129,75 @@ video {
   display: block;
 }
 
+.ntp-teaser {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 16 / 9;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+  background: #000;
+}
+
+.ntp-teaser video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ntp-legend {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 8px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  border-radius: 10px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(6px);
+  pointer-events: none;
+}
+
+.ntp-legend[data-timed-legend] {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+.ntp-legend.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.ntp-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.05;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--legend-color);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+}
+
+.ntp-legend-swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+  background: var(--legend-color);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.16);
+  flex: 0 0 auto;
+}
+
 tr[bgcolor],
 td[bgcolor] {
   background-color: var(--highlight-background) !important;
@@ -300,7 +369,7 @@ table[width="100%"][align="center"] {
   --link-color: #8ab4f8;
   --link-hover-color: #fdd663;
   --accent-color: #a7c5ff;
-  --highlight-background: rgba(255, 214, 102, 0.2);
+  --highlight-background: rgba(255, 255, 208, 0.08);
   --border-color: #333333;
 }
 
@@ -311,6 +380,10 @@ table[width="100%"][align="center"] {
 
 .joint-authors .joint-author {
   display: inline-flex;
+}
+
+body.abstract-open .paper-tldr {
+  display: none;
 }
 
 table {
@@ -364,7 +437,7 @@ th {
 
         <td style="padding:2.5%;width:63%;vertical-align:middle">
           <p>Hi, visitor! This is Soumava and you have reached my small corner on the World Wide Web. I am a first-year Ph.D. student in the 
-            <a href="https://ccvl.jhu.edu/" target="_blank">CCVL</a> lab at <a href="https://www.cs.jhu.edu/">Johns Hopkins University</a>, advised by
+            <a href="https://ccvl.jhu.edu/" target="_blank">CCVL</a> group at <a href="https://www.cs.jhu.edu/">Johns Hopkins University</a>, advised by
             Bloomberg Distinguished Professor <a href="https://www.cs.jhu.edu/~ayuille/" target="_blank">Alan Yuille</a>. 
             I completed my MSc. in 
             <a href="https://saarland-informatics-campus.de/en/msc-visual-computing/" target="_blank">Visual Computing</a> at 
@@ -446,6 +519,65 @@ th {
 
       <div><em>* denotes equal contribution</em></div>
 
+	      <table class="paper-entry joint-cycle" data-joint-cycle="ntp" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+	        <tr bgcolor="#ffffd0">
+	          <td style="padding:20px;width:25%;vertical-align:middle">
+	            <div class="ntp-teaser" data-legend-start="2.5">
+              <div class="ntp-legend" data-timed-legend aria-hidden="true">
+                <div class="ntp-legend-item" style="--legend-color:#18c7c9;"><span class="ntp-legend-swatch"></span>Cockpit</div>
+                <div class="ntp-legend-item" style="--legend-color:#ff2d2d;"><span class="ntp-legend-swatch"></span>Fuselage</div>
+                <div class="ntp-legend-item" style="--legend-color:#c47a2c;"><span class="ntp-legend-swatch"></span>Guns</div>
+                <div class="ntp-legend-item" style="--legend-color:#af52de;"><span class="ntp-legend-swatch"></span>Landing gear</div>
+                <div class="ntp-legend-item" style="--legend-color:#2f5bff;"><span class="ntp-legend-swatch"></span>Missiles</div>
+                <div class="ntp-legend-item" style="--legend-color:#f5c400;"><span class="ntp-legend-swatch"></span>Propeller</div>
+                <div class="ntp-legend-item" style="--legend-color:#ff4bd8;"><span class="ntp-legend-swatch"></span>Tail</div>
+                <div class="ntp-legend-item" style="--legend-color:#35c759;"><span class="ntp-legend-swatch"></span>Wings</div>
+              </div>
+	              <video muted loop playsinline webkit-playsinline preload="metadata">
+	                <source src="pubs/ntp_teaser.mp4" type="video/mp4">
+	                Your browser does not support the video tag.
+	              </video>
+	            </div>
+	          </td>
+	          <td width="67%" valign="top">
+	            <papertitle>Name That Part: 3D Part Segmentation and Naming</papertitle><br>
+	            <span class="joint-authors" data-joint-container="ntp">
+	              <span class="joint-author" data-group="ntp"><strong>Soumava Paul*</strong>,&nbsp;</span>
+	              <span class="joint-author" data-group="ntp"><a href="https://toshi2k2.github.io/" target="_blank">Prakhar Kaushik*</a>,&nbsp;</span>
+	            </span>
+	            <a href="https://www.linkedin.com/in/ankit-vaidya-9a668a1b0/?originalSubdomain=in" target="_blank">Ankit Vaidya</a>,
+	            <a href="https://anandbhattad.github.io/" target="_blank">Anand Bhattad</a>,
+	            <a href="https://www.cs.jhu.edu/~ayuille/" target="_blank">Alan Yuille</a>
+            <br>
+            <em>arXiv 2025</em>
+            <br>
+
+              <div class="paper" id="ntp">
+              <a href="javascript:toggleblock('ntpabs')"><font color="red">abstract</font></a> /
+              <a shape="rect" href="javascript:togglebib('ntp')" class="togglebib"><font color="red">bibtex</font></a> /
+              <a href="https://arxiv.org/abs/2512.18003" target="_blank"><font color="red">arXiv</font></a> / 
+              <a href="https://name-that-part.github.io" target="_blank"><font color="red">project page</font></a>
+              <br>
+
+	              <p align="justify"> <i id="ntpabs" class="paper-abstract">We address semantic 3D part segmentation: decomposing objects into parts with meaningful names. While datasets exist with part annotations, their definitions are inconsistent across datasets, limiting robust training. Previous methods produce unlabeled decompositions or retrieve single parts without complete shape annotations. We propose ALIGN-Parts, which formulates part naming as a direct set alignment task. Our method decomposes shapes into partlets&mdash;implicit 3D part representations&mdash;matched to part descriptions via bipartite assignment. We combine geometric cues from 3D part fields, appearance from multi-view vision features, and semantic knowledge from language-model-generated affordance descriptions. Text-alignment loss ensures partlets share embedding space with text, enabling a theoretically open-vocabulary matching setup, given sufficient data. Our efficient and novel, one-shot, 3D part segmentation and naming method finds applications in several downstream tasks, including serving as a scalable annotation engine. As our model supports zero-shot matching to arbitrary descriptions and confidence-calibrated predictions for known categories, with human verification, we create a unified ontology that aligns PartNet, 3DCoMPaT++, and Find3D, consisting of 1,794 unique 3D parts. We also show examples from our newly created Tex-Parts dataset. We also introduce 2 novel metrics appropriate for the named 3D part segmentation task.</i></p>
+
+    <pre xml:space="preserve">
+      @misc{paul2025part3dsegmentationnaming,
+        title={Name That Part: 3D Part Segmentation and Naming},
+        author={Paul, Soumava and Kaushik, Prakhar and Vaidya, Ankit and Bhattad, Anand and Yuille, Alan},
+        year={2025},
+        eprint={2512.18003},
+        archivePrefix={arXiv},
+        primaryClass={cs.CV},
+        url={https://arxiv.org/abs/2512.18003}
+      }
+    </pre>
+              </div>
+	              <p class="paper-tldr"><i>Set-level matching avoids part-count supervision and post-hoc clustering, making named part segmentation dramatically faster at inference.</i></p>
+          </td>
+        </tr>
+      </table>
+
       <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
         <tr bgcolor="#ffffd0">
           <td style="padding:20px;width:25%;vertical-align:middle">
@@ -470,10 +602,10 @@ th {
                 <a href="https://youtu.be/vnNHVHeJgCM" target="_blank"><font color="red">video</font></a>
                 <br>
 
-                <p align="justify"> <i id="gscenesabs">In this work, we introduce a generative approach for \textit{pose-free} (without camera parameters) reconstruction of 
-                  360&deg scenes from a sparse set of 2D images. Pose-free scene reconstruction from incomplete, pose-free observations is usually regularized with depth 
-                  estimation or 3D foundational priors. While recent advances have enabled sparse-view reconstruction of large complex scenes (with high degree of foreground 
-                  and background detail) with known camera poses using view-conditioned generative priors, these methods cannot be directly adapted for the pose-free setting 
+	                <p align="justify"> <i id="gscenesabs" class="paper-abstract">In this work, we introduce a generative approach for \textit{pose-free} (without camera parameters) reconstruction of 
+	                  360&deg scenes from a sparse set of 2D images. Pose-free scene reconstruction from incomplete, pose-free observations is usually regularized with depth 
+	                  estimation or 3D foundational priors. While recent advances have enabled sparse-view reconstruction of large complex scenes (with high degree of foreground 
+	                  and background detail) with known camera poses using view-conditioned generative priors, these methods cannot be directly adapted for the pose-free setting 
                   when ground-truth poses are not available during evaluation. To address this, we propose an image-to-image generative model designed to inpaint missing details 
                   and remove artifacts in novel view renders and depth maps of a 3D scene. We introduce context and geometry conditioning using Feature-wise Linear Modulation 
                   (FiLM) modulation layers as a lightweight alternative to cross-attention and also propose a novel confidence measure for 3D Gaussian splat representations to 
@@ -491,7 +623,7 @@ th {
         }
       </pre>
                 </div>
-                <p><i>A generative solution for reconstructing 360&deg scenes from sparse unposed images. </i></p>
+	                <p class="paper-tldr"><i>A generative solution for reconstructing 360&deg scenes from sparse unposed images. </i></p>
             </td>
         </tr>
       </table>
@@ -536,10 +668,10 @@ th {
                 <a href="https://github.com/mvp18/sp2-360" target="_blank"><font color="red">code</font></a>
                 <br>
 
-                <p align="justify"> <i id="sp2360abs">We aim to tackle sparse-view reconstruction of a 360&deg 3D scene using priors from latent diffusion models (LDM). The sparse-view 
-                setting is ill-posed and underconstrained, especially for scenes where the camera rotates 360 degrees around a point, as no visual information is available beyond 
-                some frontal views focused on the central object(s) of interest. In this work, we show that pretrained 2D diffusion models can strongly improve the reconstruction 
-                of a scene with low-cost fine-tuning. Specifically, we present SparseSplat360 (Sp2360), a method that employs a cascade of in-painting and artifact removal models 
+	                <p align="justify"> <i id="sp2360abs" class="paper-abstract">We aim to tackle sparse-view reconstruction of a 360&deg 3D scene using priors from latent diffusion models (LDM). The sparse-view 
+	                setting is ill-posed and underconstrained, especially for scenes where the camera rotates 360 degrees around a point, as no visual information is available beyond 
+	                some frontal views focused on the central object(s) of interest. In this work, we show that pretrained 2D diffusion models can strongly improve the reconstruction 
+	                of a scene with low-cost fine-tuning. Specifically, we present SparseSplat360 (Sp2360), a method that employs a cascade of in-painting and artifact removal models 
                 to fill in missing details and clean novel views. Due to superior training and rendering speeds, we use an explicit scene representation in the form of 3D Gaussians 
                 over NeRF-based implicit representations. We propose an iterative update strategy to fuse generated pseudo novel views with existing 3D Gaussians fitted to the 
                 initial sparse inputs. As a result, we obtain a multi-view consistent scene representation with details coherent with the observed inputs. Our evaluation on the 
@@ -558,14 +690,14 @@ th {
         }
       </pre>
                 </div>
-                <p><i>Synthesizing novel views with a combination of diffusion-based image inpainting and artifact removal priors helps reconstruct complex 360&deg scenes 
-                  without 3D-aware finetuning of a 2D diffusion model on million-scale multiview datasets. </i></p>
+	                <p class="paper-tldr"><i>Synthesizing novel views with a combination of diffusion-based image inpainting and artifact removal priors helps reconstruct complex 360&deg scenes 
+	                  without 3D-aware finetuning of a 2D diffusion model on million-scale multiview datasets. </i></p>
             </td>
         </tr>
       </table>
 
       <table class="paper-entry joint-cycle" data-joint-cycle="ucdr" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-        <tr bgcolor="#ffffd0">
+        <tr>
           <td style="padding:20px;width:25%;vertical-align:middle">
             <img src="pubs/snmpnet.jpg" width=300 height=170 style="border-style: none">
           </td>
@@ -590,9 +722,9 @@ th {
                 <a href="pubs/ucdr_iccv21_poster.pdf"><font color="red">poster</font></a>
                 <br>
 
-                <p align="justify"> <i id="ucdrabs">In this work, for the first time, we address the problem of universal cross-domain retrieval, where the test data 
-                can belong to classes or domains which are unseen during training. Due to dynamically increasing number of categories and practical constraint of 
-                training on every possible domain, which requires large amounts of data, generalizing to both unseen classes and domains is important. Towards that 
+	                <p align="justify"> <i id="ucdrabs" class="paper-abstract">In this work, for the first time, we address the problem of universal cross-domain retrieval, where the test data 
+	                can belong to classes or domains which are unseen during training. Due to dynamically increasing number of categories and practical constraint of 
+	                training on every possible domain, which requires large amounts of data, generalizing to both unseen classes and domains is important. Towards that 
                 goal, we propose SnMpNet (Semantic Neighbourhood and Mixture Prediction Network), which incorporates two novel losses to account for the unseen 
                 classes and domains encountered during testing. Specifically, we introduce a novel Semantic Neighborhood loss to bridge the knowledge gap between 
                 seen and unseen classes and ensure that the latent space embedding of the unseen classes is semantically meaningful with respect to its neighboring 
@@ -612,15 +744,15 @@ th {
       }
       </pre>
                 </div>
-                <p><i>Semantic domain-invariant learning of latent space embeddings prepares an image retrieval model for a challenging cross-domain retrieval scenario 
-                  where test data can belong to classes or domains unseen during training.</i></p>
+	                <p class="paper-tldr"><i>Semantic domain-invariant learning of latent space embeddings prepares an image retrieval model for a challenging cross-domain retrieval scenario 
+	                  where test data can belong to classes or domains unseen during training.</i></p>
             </td>
         </tr>
       </table>
 
 
       <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-        <tr bgcolor="#ffffd0">
+        <tr>
           <td style="padding:20px;width:25%;vertical-align:middle">
             <img src="pubs/spec.png" width=300 height=200 style="border-style: none">
           </td>
@@ -644,9 +776,9 @@ th {
                 <a href="pubs/KD_SVD_15min.pptx"><font color="red">slides</font></a>
                 <br>
 
-                <p align="justify"> <i id="kdsvdabs">Singing Voice Detection (SVD) has been an active area of research in music information retrieval (MIR). 
-                Currently, two deep neural network-based methods, one based on CNN and the other on RNN, exist in literature that learn optimized features for 
-                the voice detection (VD) task and achieve state-of-the-art performance on common datasets. Both these models have a huge number of 
+	                <p align="justify"> <i id="kdsvdabs" class="paper-abstract">Singing Voice Detection (SVD) has been an active area of research in music information retrieval (MIR). 
+	                Currently, two deep neural network-based methods, one based on CNN and the other on RNN, exist in literature that learn optimized features for 
+	                the voice detection (VD) task and achieve state-of-the-art performance on common datasets. Both these models have a huge number of 
                 parameters (1.4M for CNN and 65.7K for RNN) and hence not suitable for deployment on devices like smartphones or embedded sensors with limited 
                 capacity in terms of memory and computation power. The most popular method to address this issue is known as knowledge distillation in deep learning 
                 literature (in addition to model compression) where a large pre-trained network known as the teacher is used to train a smaller student network. 
@@ -665,8 +797,8 @@ th {
       }
       </pre>
                 </div>
-                <p><i>Knowledge Distillation with state-of-the-art voice detection models as teachers improves performance of student models upto 1000x 
-                smaller in parameter count.</i></p>
+	                <p class="paper-tldr"><i>Knowledge Distillation with state-of-the-art voice detection models as teachers improves performance of student models upto 1000x 
+	                smaller in parameter count.</i></p>
             </td>
         </tr>
       </table>
@@ -699,9 +831,9 @@ th {
                 <a href="pubs/gAL_ICCV21_MELEX_slides.pptx"><font color="red">slides</font></a>
                 <br>
 
-                <p align="justify"> <i id="gALabs">Zero-shot learning (ZSL) algorithms typically work by exploiting attribute correlations to make predictions for 
-                unseen classes. However, these correlations do not remain intact at test time in most practical settings, and the resulting change in these 
-                correlations leads to adverse effects on zero-shot learning performance. In this paper, we present a new paradigm for ZSL that: (i) utilizes the 
+	                <p align="justify"> <i id="gALabs" class="paper-abstract">Zero-shot learning (ZSL) algorithms typically work by exploiting attribute correlations to make predictions for 
+	                unseen classes. However, these correlations do not remain intact at test time in most practical settings, and the resulting change in these 
+	                correlations leads to adverse effects on zero-shot learning performance. In this paper, we present a new paradigm for ZSL that: (i) utilizes the 
                 class-attribute mapping of unseen classes to estimate the change in target distribution (target shift), and (ii) propose a novel technique called 
                 grouped Adversarial Learning (gAL) to reduce negative effects of this shift. Our approach is widely applicable for several existing ZSL algorithms, 
                 including those with implicit attribute predictions. We apply the proposed technique (gAL) on three popular ZSL algorithms: ALE, SJE, and DEVISE, 
@@ -718,7 +850,7 @@ th {
       }
       </pre>
                 </div>
-                <p><i>Learning image attributes with grouped Adversarial Learning (gAL) reduces effects of target shift in zero-shot learning algorithms..</i></p>
+	                <p class="paper-tldr"><i>Learning image attributes with grouped Adversarial Learning (gAL) reduces effects of target shift in zero-shot learning algorithms..</i></p>
             </td>
         </tr>
       </table>
@@ -750,9 +882,9 @@ th {
                 <a href="pubs/Paper55.pptx"><font color="red">slides</font></a>
                 <br>
 
-                <p align="justify"> <i id="aecnnabs">Deep learning models trained in natural images are commonly used for different classification tasks in the 
-                medical domain. Generally, very high dimensional medical images are down-sampled by using interpolation techniques before feeding them to deep 
-                learning models that are ImageNet compliant and accept only low-resolution images of size 224 x 224 px. This popular technique may lead to the 
+	                <p align="justify"> <i id="aecnnabs" class="paper-abstract">Deep learning models trained in natural images are commonly used for different classification tasks in the 
+	                medical domain. Generally, very high dimensional medical images are down-sampled by using interpolation techniques before feeding them to deep 
+	                learning models that are ImageNet compliant and accept only low-resolution images of size 224 x 224 px. This popular technique may lead to the 
                 loss of key information thus hampering the classification. Significant pathological features in medical images typically being small sized and 
                 highly affected. To combat this problem, we introduce a convolutional neural network (CNN) based classification approach which learns to reduce 
                 the resolution of the image using an autoencoder and at the same time classify it using another network, while both the tasks are trained jointly. 
@@ -771,8 +903,8 @@ th {
       }
       </pre>
               </div>
-              <p><i>Downscaling high resolution Chest X-Rays using an autoencoder leads to superior retention of important pathological features for thoracic disease 
-                classification over usual interpolation techniques.</i></p>
+	              <p class="paper-tldr"><i>Downscaling high resolution Chest X-Rays using an autoencoder leads to superior retention of important pathological features for thoracic disease 
+	                classification over usual interpolation techniques.</i></p>
             </td>
         </tr>
       </table>
@@ -832,7 +964,8 @@ th {
           <td width="75%" valign="center" id="Service">
             <sectionheading>&nbsp;&nbsp;Academic Service</sectionheading>
             <ul>
-              <li>Reviewer: <a href="https://iclr.cc" target="_blank">ICLR</a>,
+              <li>Reviewer: <a href="https://openreview.net/group?id=TMLR" target="_blank">TMLR</a>,
+                <a href="https://iclr.cc" target="_blank">ICLR</a>,
                 <a href="https://cvpr.thecvf.com" target="_blank">CVPR</a>,
                 <a href="https://eccv.ecva.net/" target="_blank">ECCV</a>,
                 <a href="https://aaai.org" target="_blank">AAAI</a>, 
@@ -973,6 +1106,71 @@ th {
 </script>
 <script>
   (function () {
+    var containers = document.querySelectorAll('.ntp-teaser[data-legend-start]');
+    if (!containers.length) {
+      return;
+    }
+
+	    containers.forEach(function (container) {
+	      var legendStart = Number.parseFloat(container.getAttribute('data-legend-start'));
+	      if (!Number.isFinite(legendStart)) {
+	        return;
+	      }
+
+      var video = container.querySelector('video');
+      var legend = container.querySelector('.ntp-legend[data-timed-legend]');
+      if (!(video instanceof HTMLVideoElement) || !(legend instanceof HTMLElement)) {
+        return;
+      }
+
+      var isVisible = false;
+
+	      function updateLegend() {
+	        var shouldShow = !video.paused && video.currentTime >= legendStart;
+	        if (shouldShow === isVisible) {
+	          return;
+	        }
+	        isVisible = shouldShow;
+	        legend.classList.toggle('is-visible', shouldShow);
+	        legend.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+	      }
+
+	      function startVideo() {
+	        video.playbackRate = 2;
+	        var playPromise = video.play();
+	        if (playPromise && typeof playPromise.catch === 'function') {
+	          playPromise.catch(function () {
+	            /* no-op */
+	          });
+	        }
+	      }
+
+	      function stopVideo() {
+	        video.pause();
+	        try {
+	          video.currentTime = 0;
+	        } catch (error) {
+	          /* no-op */
+	        }
+	        updateLegend();
+	      }
+
+	      var hoverTarget = container.closest('table') || container;
+	      hoverTarget.addEventListener('mouseenter', startVideo);
+	      hoverTarget.addEventListener('mouseleave', stopVideo);
+
+	      video.addEventListener('loadedmetadata', updateLegend);
+	      video.addEventListener('timeupdate', updateLegend);
+	      video.addEventListener('seeked', updateLegend);
+	      video.addEventListener('play', updateLegend);
+	      video.addEventListener('pause', updateLegend);
+
+	      stopVideo();
+	    });
+	  })();
+	</script>
+<script>
+  (function () {
     var storageKey = 'preferred-color-scheme';
     var toggleButton = document.getElementById('theme-toggle-button');
     if (!toggleButton) {
@@ -1042,6 +1240,9 @@ th {
 hideallbibs();
 </script>
 <script xml:space="preserve" language="JavaScript">
+  hideblock('ntpabs');
+</script>
+<script xml:space="preserve" language="JavaScript">
   hideblock('gscenesabs');
 </script>
 <script xml:space="preserve" language="JavaScript">
@@ -1056,10 +1257,40 @@ hideblock('kdsvdabs');
 <script xml:space="preserve" language="JavaScript">
 hideblock('gALabs');
 </script>
-<script xml:space="preserve" language="JavaScript">
-hideblock('aecnnabs');
-</script>
+	<script xml:space="preserve" language="JavaScript">
+	hideblock('aecnnabs');
+	</script>
+	<script>
+	  (function () {
+	    function syncPaperTldrs() {
+	      var abstracts = document.querySelectorAll('.paper-abstract');
+	      var anyOpen = false;
+	      abstracts.forEach(function (abstractEl) {
+	        if (window.getComputedStyle(abstractEl).display !== 'none') {
+	          anyOpen = true;
+	        }
+	      });
+	      document.body.classList.toggle('abstract-open', anyOpen);
+	    }
 
-</body>
+	    var originalToggleblock = window.toggleblock;
+	    window.toggleblock = function (blockId) {
+	      if (typeof originalToggleblock === 'function') {
+	        originalToggleblock(blockId);
+	      } else {
+	        var block = document.getElementById(blockId);
+	        if (block) {
+	          block.style.display = block.style.display === 'none' ? 'block' : 'none';
+	        }
+	      }
+
+	      syncPaperTldrs();
+	    };
+
+	    syncPaperTldrs();
+	  })();
+	</script>
+	
+	</body>
 
 </html>
