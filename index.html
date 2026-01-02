@@ -562,15 +562,11 @@ th {
 	              <p align="justify"> <i id="ntpabs" class="paper-abstract">We address semantic 3D part segmentation: decomposing objects into parts with meaningful names. While datasets exist with part annotations, their definitions are inconsistent across datasets, limiting robust training. Previous methods produce unlabeled decompositions or retrieve single parts without complete shape annotations. We propose ALIGN-Parts, which formulates part naming as a direct set alignment task. Our method decomposes shapes into partlets&mdash;implicit 3D part representations&mdash;matched to part descriptions via bipartite assignment. We combine geometric cues from 3D part fields, appearance from multi-view vision features, and semantic knowledge from language-model-generated affordance descriptions. Text-alignment loss ensures partlets share embedding space with text, enabling a theoretically open-vocabulary matching setup, given sufficient data. Our efficient and novel, one-shot, 3D part segmentation and naming method finds applications in several downstream tasks, including serving as a scalable annotation engine. As our model supports zero-shot matching to arbitrary descriptions and confidence-calibrated predictions for known categories, with human verification, we create a unified ontology that aligns PartNet, 3DCoMPaT++, and Find3D, consisting of 1,794 unique 3D parts. We also show examples from our newly created Tex-Parts dataset. We also introduce 2 novel metrics appropriate for the named 3D part segmentation task.</i></p>
 
     <pre xml:space="preserve">
-      @misc{paul2025part3dsegmentationnaming,
-        title={Name That Part: 3D Part Segmentation and Naming},
-        author={Paul, Soumava and Kaushik, Prakhar and Vaidya, Ankit and Bhattad, Anand and Yuille, Alan},
-        year={2025},
-        eprint={2512.18003},
-        archivePrefix={arXiv},
-        primaryClass={cs.CV},
-        url={https://arxiv.org/abs/2512.18003}
-      }
+      @article{paul2025name,
+      title={Name That Part: 3D Part Segmentation and Naming},
+      author={Paul, Soumava and Kaushik, Prakhar and Vaidya, Ankit and Bhattad, Anand and Yuille, Alan},
+      journal={arXiv preprint arXiv:2512.18003},
+      year={2025}	
     </pre>
               </div>
 	              <p class="paper-tldr"><i>Set-level matching avoids part-count supervision and post-hoc clustering, making named part segmentation dramatically faster at inference.</i></p>
