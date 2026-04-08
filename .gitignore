@@ -3,6 +3,8 @@ __pycache__/
 .DS_Store
 *.py[cod]
 *$py.class
+sample-dir
+.claude
 
 # C extensions
 *.so
@@ -128,3 +130,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Claude Code
+CLAUDE.md

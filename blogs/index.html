@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog — Soumava Paul</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #111827;
+            --secondary: #4b5563;
+            --accent: #2563eb;
+            --card-bg: #f8fafc;
+            --border: #e5e7eb;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #ffffff;
+            color: var(--primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        header {
+            padding: 56px 24px 24px;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            font-family: 'Crimson Text', Georgia, serif;
+            font-weight: 600;
+            font-size: 36px;
+            margin-bottom: 4px;
+        }
+
+        header p {
+            color: var(--secondary);
+            font-size: 15px;
+        }
+
+        main {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 24px 100px;
+        }
+
+        .post-list {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .post-item {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+            text-decoration: none;
+            color: inherit;
+            transition: background 0.15s;
+        }
+
+        .post-item:first-child {
+            border-top: 1px solid var(--border);
+        }
+
+        .post-item:hover {
+            background: var(--card-bg);
+        }
+
+        .post-date {
+            font-size: 14px;
+            color: var(--secondary);
+            white-space: nowrap;
+            min-width: 80px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .post-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--primary);
+            flex: 1;
+        }
+
+        .post-item:hover .post-title {
+            color: var(--accent);
+        }
+
+        .post-tag {
+            font-size: 12px;
+            color: var(--secondary);
+            background: var(--card-bg);
+            padding: 2px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 640px) {
+            header h1 { font-size: 30px; }
+            .post-item { flex-wrap: wrap; gap: 4px; }
+            .post-date { min-width: auto; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="../index.html" style="font-size:13px; color:var(--secondary); text-decoration:none;">&larr; Home</a>
+        <h1>Writing</h1>
+        <p>Notes on tools and workflows.</p>
+    </header>
+    <main>
+        <div class="post-list">
+            <a class="post-item" href="beautify-mac-terminal.html">
+                <span class="post-date">Apr 2025</span>
+                <span class="post-title">My macOS Terminal Setup</span>
+                <span class="post-tag">productivity</span>
+            </a>
+        </div>
+    </main>
+</body>
+</html>

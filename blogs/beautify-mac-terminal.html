@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My macOS Terminal Setup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <meta property="og:title" content="My macOS Terminal Setup">
+    <meta property="og:description" content="Powerlevel10k, modern CLI tools, and the exact zshrc that runs on my machine.">
+    <meta property="og:image" content="https://mvp18.github.io/images/blogs/terminal-overview.png">
+    <meta property="og:url" content="https://mvp18.github.io/blogs/beautify-mac-terminal.html">
+    <meta property="og:type" content="article">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-text: #1a1a1a;
+            --secondary-text: #4a5568;
+            --accent: #2563eb;
+            --light-gray: #f7fafc;
+            --border-light: #e2e8f0;
+            --highlight-bg: #eff6ff;
+            --code-bg: #272822;
+            --code-fg: #f8f8f2;
+        }
+
+        body {
+            font-family: 'Crimson Text', Georgia, serif;
+            font-size: 20px;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background: #fff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px 120px;
+        }
+
+        .article-header {
+            padding: 72px 0 48px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .title {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--primary-text);
+            line-height: 1.15;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 22px;
+            color: var(--secondary-text);
+            font-weight: 400;
+            margin-bottom: 28px;
+            line-height: 1.4;
+        }
+
+        .meta {
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-size: 14px;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .meta-divider {
+            width: 1px;
+            height: 14px;
+            background: #d1d5db;
+        }
+
+        .article-content {
+            padding: 48px 0;
+        }
+
+        h2 {
+            font-size: 30px;
+            font-weight: 600;
+            color: var(--primary-text);
+            line-height: 1.25;
+            margin: 52px 0 20px 0;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: 23px;
+            font-weight: 600;
+            color: var(--primary-text);
+            line-height: 1.3;
+            margin: 36px 0 14px 0;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: var(--primary-text);
+        }
+
+        ul, ol {
+            margin: 16px 0 20px 24px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .callout {
+            background: var(--highlight-bg);
+            border-left: 4px solid var(--accent);
+            padding: 20px 24px;
+            margin: 28px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-fg);
+            padding: 20px 24px;
+            border-radius: 10px;
+            font-family: 'Fira Code', 'SF Mono', Menlo, monospace;
+            font-size: 14.5px;
+            line-height: 1.6;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        code {
+            font-family: 'Fira Code', 'SF Mono', Menlo, monospace;
+            font-size: 0.88em;
+            background: rgba(37, 99, 235, 0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            font-size: inherit;
+        }
+
+        .figure {
+            margin: 40px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+        }
+
+        .figure img {
+            width: 100%;
+            display: block;
+        }
+
+        .figure-caption {
+            padding: 14px 20px;
+            background: var(--light-gray);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--secondary-text);
+        }
+
+        .toc {
+            background: var(--light-gray);
+            border-radius: 10px;
+            padding: 24px 28px;
+            margin: 32px 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+        }
+
+        .toc-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--primary-text);
+        }
+
+        .toc ol {
+            margin: 0 0 0 20px;
+        }
+
+        .toc li {
+            margin-bottom: 6px;
+        }
+
+        .toc a {
+            color: var(--secondary-text);
+        }
+
+        .toc a:hover {
+            color: var(--accent);
+        }
+
+        .dotfiles-box {
+            background: var(--code-bg);
+            color: var(--code-fg);
+            border-radius: 10px;
+            padding: 24px;
+            margin: 32px 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+        }
+
+        .dotfiles-box a {
+            color: #66d9ef;
+        }
+
+        .comment { color: #75715e; }
+        .string { color: #e6db74; }
+        .keyword { color: #f92672; }
+        .function { color: #a6e22e; }
+        .flag { color: #ae81ff; }
+        .variable { color: #66d9ef; }
+
+        @media (max-width: 720px) {
+            .title { font-size: 34px; }
+            .subtitle { font-size: 19px; }
+            h2 { font-size: 26px; }
+            pre { margin: 16px -12px; border-radius: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="article-header">
+            <div style="margin-bottom:24px;">
+                <a href="index.html" style="font-size:13px; font-family:'Inter',sans-serif; color:var(--secondary-text); text-decoration:none;">&larr; All posts</a>
+            </div>
+            <h1 class="title">My macOS Terminal Setup</h1>
+            <p class="subtitle">Powerlevel10k, modern CLI tools, and the exact zshrc that runs on my machine.</p>
+            <div class="meta">
+                <span>Soumava Paul</span>
+                <span class="meta-divider"></span>
+                <span>April 2026</span>
+            </div>
+        </header>
+
+        <article class="article-content">
+
+            <p>I spend most of my day SSH'd into GPU clusters, managing git repos, compressing PDFs and videos, and moving files between local and remote machines. At some point I got tired of the default macOS Terminal experience and put together a setup that's both functional and pleasant to look at. This post documents exactly what I run so you can reproduce it or steal the parts you like.</p>
+
+            <div class="toc">
+                <div class="toc-title">Contents</div>
+                <ol>
+                    <li><a href="#prereqs">Prerequisites</a></li>
+                    <li><a href="#prompt">Prompt: Powerlevel10k</a></li>
+                    <li><a href="#plugins">Plugins</a></li>
+                    <li><a href="#syntax">Syntax Highlighting and Autosuggestions</a></li>
+                    <li><a href="#cli-tools">Modern CLI Replacements</a></li>
+                    <li><a href="#fzf">Fuzzy Finding with fzf</a></li>
+                    <li><a href="#git-delta">Git + Delta</a></li>
+                    <li><a href="#git-aliases">Git Aliases</a></li>
+                    <li><a href="#history">History and Completions</a></li>
+                    <li><a href="#banner">Startup Banner</a></li>
+                    <li><a href="#aliases">Workflow Aliases</a></li>
+                    <li><a href="#dotfiles">Dotfiles</a></li>
+                </ol>
+            </div>
+
+            <!-- ============================================================ -->
+            <h2 id="prereqs">Prerequisites</h2>
+
+            <p>I use macOS Terminal.app with a Monokai color profile and the <a href="https://github.com/ryanoasis/nerd-fonts">Hack Nerd Font</a>. iTerm2 works too. Install the core tools up front:</p>
+
+            <pre><code>brew install powerlevel10k zsh-autosuggestions zsh-syntax-highlighting \
+     lsd bat fzf fd ripgrep zoxide git-delta btop</code></pre>
+
+            <p>Then run <code>p10k configure</code> once to generate <code>~/.p10k.zsh</code>. Pick the Rainbow style with Nerd Font support.</p>
+
+
+            <!-- ============================================================ -->
+            <h2 id="prompt">Prompt: Powerlevel10k</h2>
+
+            <p>The left prompt shows four segments: an Apple glyph, the current directory, git status, and a prompt character (<code>&#10095;</code> green on success, red on failure). The right prompt shows exit code, command duration, conda environment, and the time.</p>
+
+            <pre><code><span class="comment"># ~/.p10k.zsh</span>
+<span class="keyword">typeset</span> -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+  os_icon   dir   vcs   prompt_char
+)
+<span class="keyword">typeset</span> -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
+  status   command_execution_time   background_jobs
+  virtualenv   anaconda   time
+)</code></pre>
+
+            <div class="figure">
+                <img src="../images/blogs/terminal-overview.png" alt="Full terminal showing prompt, lsd output, and right-side status segments">
+                <div class="figure-caption">
+                    The full terminal with lsd output. Left: Apple icon, directory path, git branch. Right: exit status, command duration, conda env, clock.
+                </div>
+            </div>
+
+            <h3>Directory gradient</h3>
+
+            <p>Directory paths get a teal-to-pink color gradient, which keeps deeply nested paths readable against the dark navy background. I also define per-directory color classes so my PhD research directory uses a purple gradient, downloads go orange, and project directories go green:</p>
+
+            <pre><code><span class="comment"># ~/.p10k.zsh — directory colors</span>
+<span class="keyword">typeset</span> -g POWERLEVEL9K_DIR_BACKGROUND=<span class="flag">24</span>          <span class="comment"># deep navy</span>
+<span class="keyword">typeset</span> -g POWERLEVEL9K_DIR_FOREGROUND_FROM=<span class="flag">81</span>    <span class="comment"># teal</span>
+<span class="keyword">typeset</span> -g POWERLEVEL9K_DIR_FOREGROUND_TO=<span class="flag">213</span>     <span class="comment"># pink</span>
+<span class="keyword">typeset</span> -g POWERLEVEL9K_DIR_FOREGROUND_GRADIENT=true
+
+<span class="comment"># Per-directory class gradients</span>
+<span class="keyword">typeset</span> -g POWERLEVEL9K_DIR_CLASSES=(
+  <span class="string">'~/Documents/New project(|/*)'</span>  PROJECT    <span class="string">''</span>
+  <span class="string">'~/jhu_phd(|/*)'</span>               PHD        <span class="string">''</span>
+  <span class="string">'~/Downloads(|/*)'</span>             DOWNLOADS  <span class="string">''</span>
+  <span class="string">'~(|/*)'</span>                        HOME       <span class="string">''</span>
+  <span class="string">'*'</span>                             DEFAULT    <span class="string">''</span>
+)</code></pre>
+
+            <h3>Transient prompt</h3>
+
+            <p>Once a command finishes, its full prompt collapses to a simple <code>&#10095;</code>. This keeps scrollback clean — only the current prompt shows all the segments. Set with:</p>
+
+            <pre><code><span class="keyword">typeset</span> -g POWERLEVEL9K_TRANSIENT_PROMPT=always</code></pre>
+
+            <div class="figure">
+                <img src="../images/blogs/prompt-closeup.png" alt="Close-up of the Powerlevel10k prompt with transient old prompts">
+                <div class="figure-caption">
+                    Transient prompt in action: older commands show a minimal <code>&#10095;</code>, the current line gets the full prompt with directory, git, and right-side segments.
+                </div>
+            </div>
+
+
+            <!-- ============================================================ -->
+            <h2 id="plugins">Plugins</h2>
+
+            <p>Four plugins via Oh My Zsh, plus <a href="https://github.com/Aloxaf/fzf-tab">fzf-tab</a> loaded separately:</p>
+
+            <pre><code><span class="comment"># ~/.zshrc</span>
+plugins=(
+  git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  history-substring-search
+)</code></pre>
+
+            <p><strong>fzf-tab</strong> replaces the default zsh completion menu with an fzf-powered popup. Tab-completing <code>cd</code>, <code>git checkout</code>, or <code>kill</code> now shows a fuzzy-searchable list with previews.</p>
+
+
+            <!-- ============================================================ -->
+            <h2 id="syntax">Syntax Highlighting and Autosuggestions</h2>
+
+            <p>The default syntax highlighting colors are garish against a dark background. I tone everything down to muted greys, then highlight specific command patterns so dangerous commands stand out:</p>
+
+            <pre><code><span class="comment"># Muted defaults</span>
+ZSH_HIGHLIGHT_STYLES[command]=<span class="string">'fg=250'</span>
+ZSH_HIGHLIGHT_STYLES[unknown-token]=<span class="string">'fg=203'</span>  <span class="comment"># red for errors</span>
+
+<span class="comment"># Pattern-based highlights for specific commands</span>
+ZSH_HIGHLIGHT_PATTERNS+=(
+  <span class="string">'sudo *'</span>    <span class="string">'fg=141,bold'</span>     <span class="comment"># purple</span>
+  <span class="string">'rm *'</span>      <span class="string">'fg=203,bold'</span>     <span class="comment"># red</span>
+  <span class="string">'git *'</span>     <span class="string">'fg=#A6E22E'</span>      <span class="comment"># green</span>
+  <span class="string">'ssh *'</span>     <span class="string">'fg=#66D9EF'</span>      <span class="comment"># cyan</span>
+)</code></pre>
+
+            <p>Autosuggestions are set to a Monokai yellow (<code>#E6DB74</code>) so they're visible but clearly different from the command you're typing.</p>
+
+
+            <!-- ============================================================ -->
+            <h2 id="cli-tools">Modern CLI Replacements</h2>
+
+            <p>These aliases shadow the default commands so muscle memory stays intact:</p>
+
+            <pre><code><span class="comment"># ~/.zshrc</span>
+<span class="keyword">alias</span> ls=<span class="string">"lsd --group-dirs=first --icon=always"</span>
+<span class="keyword">alias</span> ll=<span class="string">"ls -lh"</span>
+<span class="keyword">alias</span> la=<span class="string">"ls -lha"</span>
+<span class="keyword">alias</span> lt=<span class="string">"ls --tree"</span>
+<span class="keyword">alias</span> cat=<span class="string">"bat --theme='Monokai Extended' --style=plain"</span></code></pre>
+
+            <ul>
+                <li><a href="https://github.com/lsd-rs/lsd"><strong>lsd</strong></a> adds file-type icons, human-readable sizes, and relative timestamps to directory listings.</li>
+                <li><a href="https://github.com/sharkdp/bat"><strong>bat</strong></a> provides syntax-highlighted file previews with the Monokai Extended theme.</li>
+                <li><a href="https://github.com/BurntSushi/ripgrep"><strong>ripgrep</strong></a> (<code>rg</code>) replaces <code>grep</code> for code search — respects <code>.gitignore</code>, smart case by default.</li>
+                <li><a href="https://github.com/sharkdp/fd"><strong>fd</strong></a> replaces <code>find</code> with sane defaults and a simpler syntax.</li>
+                <li><a href="https://github.com/ajeetdsouza/zoxide"><strong>zoxide</strong></a> replaces <code>cd</code> with a frecency-ranked directory jumper. <code>z project-name</code> jumps to your most-used match.</li>
+            </ul>
+
+            <div class="figure">
+                <img src="../images/blogs/lsd-listing.png" alt="lsd directory listing with icons and colors">
+                <div class="figure-caption">
+                    <code>lsd -lha</code> output showing file-type icons, permissions, sizes, and relative dates.
+                </div>
+            </div>
+
+
+            <!-- ============================================================ -->
+            <h2 id="fzf">Fuzzy Finding with fzf</h2>
+
+            <p><a href="https://github.com/junegunn/fzf">fzf</a> ties into three keyboard shortcuts: <code>Ctrl-R</code> for history search, <code>Ctrl-T</code> for file search, and <code>Alt-C</code> for directory navigation. I configure it to use <code>fd</code> for file listing (faster than the default <code>find</code>), <code>bat</code> for file previews, and <code>lsd</code> for directory previews:</p>
+
+            <pre><code><span class="comment"># Use fd for file listing</span>
+<span class="keyword">export</span> FZF_DEFAULT_COMMAND=<span class="string">'fd --type f --hidden --follow --exclude .git'</span>
+<span class="keyword">export</span> FZF_CTRL_T_COMMAND=<span class="string">"$FZF_DEFAULT_COMMAND"</span>
+
+<span class="comment"># Bat preview for Ctrl-T, lsd preview for Alt-C</span>
+<span class="keyword">export</span> FZF_CTRL_T_OPTS=<span class="string">"--preview 'bat --style=numbers --color=always --line-range :200 {}'"</span>
+<span class="keyword">export</span> FZF_ALT_C_OPTS=<span class="string">"--preview 'lsd --icon=always --color=always -A {}'"</span></code></pre>
+
+            <p>The fzf popup itself is styled to match the Monokai palette — dark background, pink highlights, green info text:</p>
+
+            <pre><code><span class="keyword">export</span> FZF_DEFAULT_OPTS=<span class="string">"--height=40% --layout=reverse --border \
+  --color=fg:#f8f8f2,bg:#272822,hl:#f92672,fg+:#f8f8f2,bg+:#3e3d32,hl+:#f92672,\
+info:#a6e22e,prompt:#66d9ef,pointer:#f92672,marker:#a6e22e"</span></code></pre>
+
+
+            <!-- ============================================================ -->
+            <h2 id="git-delta">Git + Delta</h2>
+
+            <p><a href="https://github.com/dandavison/delta">delta</a> replaces the default git diff pager with syntax-highlighted, line-numbered diffs. Configure it in <code>~/.gitconfig</code>:</p>
+
+            <pre><code><span class="comment"># ~/.gitconfig</span>
+[core]
+  pager = delta
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true
+  line-numbers = true
+  syntax-theme = Monokai Extended</code></pre>
+
+            <p>This means <code>git diff</code>, <code>git log -p</code>, and <code>git show</code> all get the improved rendering automatically. The <code>navigate</code> option lets you jump between diff hunks with <code>n</code> and <code>N</code>.</p>
+
+
+            <!-- ============================================================ -->
+            <h2 id="git-aliases">Git Aliases</h2>
+
+            <p>The <code>git</code> plugin in Oh My Zsh (already in the <code>plugins=()</code> list above) defines <a href="https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git">several hundred aliases</a>. These are the ones I actually use daily:</p>
+
+            <pre><code><span class="comment"># Staging and committing</span>
+gaa       <span class="comment"># git add --all</span>
+gcmsg <span class="string">"fix: ..."</span>  <span class="comment"># git commit --message "fix: ..."</span>
+
+<span class="comment"># Push / pull</span>
+ggpush    <span class="comment"># git push origin &lt;current-branch&gt;</span>
+ggpull    <span class="comment"># git pull origin &lt;current-branch&gt;</span>
+gp        <span class="comment"># git push</span>
+gl        <span class="comment"># git pull</span>
+
+<span class="comment"># Status and diff</span>
+gst       <span class="comment"># git status</span>
+gd        <span class="comment"># git diff</span>
+gdca      <span class="comment"># git diff --cached</span>
+
+<span class="comment"># Branching</span>
+gcb <span class="string">new-branch</span>  <span class="comment"># git checkout -b new-branch</span>
+gco <span class="string">main</span>       <span class="comment"># git checkout main</span>
+gb             <span class="comment"># git branch</span>
+
+<span class="comment"># Log</span>
+glog      <span class="comment"># git log --oneline --decorate --graph</span>
+glol      <span class="comment"># git log --graph --pretty (colored, with author + date)</span></code></pre>
+
+            <p>Run <code>alias | grep git</code> to see the full list. The ones above cover the common add-commit-push cycle and save a surprising amount of typing over a day.</p>
+
+
+            <!-- ============================================================ -->
+            <h2 id="history">History and Completions</h2>
+
+            <p>A 200K-line shared history with deduplication:</p>
+
+            <pre><code>HISTSIZE=<span class="flag">200000</span>
+SAVEHIST=<span class="flag">200000</span>
+<span class="keyword">setopt</span> HIST_IGNORE_ALL_DUPS SHARE_HISTORY EXTENDED_HISTORY</code></pre>
+
+            <h3>Autosuggestions vs. substring search</h3>
+
+            <p>These two plugins look similar but serve different purposes and work together:</p>
+
+            <ul>
+                <li><strong>zsh-autosuggestions</strong> shows a single ghost completion inline (in Monokai yellow) as you type, based on your most recent matching history entry. Accept the suggestion with the right arrow key (<code>→</code>).</li>
+                <li><strong>history-substring-search</strong> lets you <em>cycle through multiple matches</em> with the arrow keys. Type a prefix like <code>ssh</code>, press Up, and it filters history to only commands containing <code>ssh</code> — press Up again to see the next match, Down to go back.</li>
+            </ul>
+
+            <pre><code><span class="comment"># Bind Up/Down to substring search (not plain history scroll)</span>
+<span class="keyword">bindkey</span> <span class="string">'^[[A'</span> history-substring-search-up
+<span class="keyword">bindkey</span> <span class="string">'^[[B'</span> history-substring-search-down</code></pre>
+
+            <p>Without these bindings, Up/Down would cycle through all history chronologically regardless of what you've typed. With them, they filter to matches. Combined with <code>Ctrl-R</code> (fzf fuzzy history search), you get three complementary ways to recall commands.</p>
+
+            <h3>Colored man pages</h3>
+
+            <p>The <code>LESS_TERMCAP</code> variables add color to man pages without any external tools. Headers in yellow, underlined text in cyan, search matches highlighted in blue:</p>
+
+            <pre><code><span class="keyword">export</span> LESS_TERMCAP_md=$<span class="string">'\e[1;33m'</span>  <span class="comment"># bold/headers: yellow</span>
+<span class="keyword">export</span> LESS_TERMCAP_us=$<span class="string">'\e[1;36m'</span>  <span class="comment"># underline: cyan</span>
+<span class="keyword">export</span> LESS_TERMCAP_so=$<span class="string">'\e[1;44;97m'</span>  <span class="comment"># search matches: blue bg</span></code></pre>
+
+
+            <!-- ============================================================ -->
+            <h2 id="banner">Startup Banner</h2>
+
+            <p>Each new shell prints a system summary via <a href="https://github.com/dylanaraps/neofetch">neofetch</a> (or <a href="https://github.com/fastfetch-cli/fastfetch">fastfetch</a> if installed). It shows OS, kernel, CPU usage, memory, GPU utilization, disk space, and the top processes by CPU and memory — all pulled from a custom config that gathers macOS-specific metrics:</p>
+
+            <pre><code><span class="comment"># A `fetch` function in .zshrc that runs on first prompt</span>
+<span class="comment"># Collects: CPU temp, GPU util/mem, disk free, top CPU/MEM process</span>
+<span class="comment"># Then passes them as environment variables to neofetch's custom config</span>
+fetch() {
+  <span class="keyword">if</span> command -v fastfetch >/dev/null 2>&1; <span class="keyword">then</span>
+    fastfetch; <span class="keyword">return</span>
+  <span class="keyword">fi</span>
+  <span class="comment"># Falls back to neofetch with custom ~/.neofetch-funky.conf</span>
+  ...
+}</code></pre>
+
+            <p>The banner is disabled in non-interactive shells and can be toggled off with <code>export FUNKY_BANNER=0</code>.</p>
+
+
+            <!-- ============================================================ -->
+            <h2 id="aliases">Workflow Aliases</h2>
+
+            <p>A few shell functions for tasks I do often enough to want a short command:</p>
+
+            <h3>PDF compression</h3>
+
+            <p>Wraps Ghostscript. The quality parameter controls the tradeoff — <code>prepress</code> retains high fidelity (good for papers), <code>ebook</code> is more aggressive, <code>screen</code> is smallest.</p>
+
+            <pre><code><span class="comment"># pdfcompress input.pdf [output.pdf] [screen|ebook|printer|prepress]</span>
+<span class="function">pdfcompress</span>() {
+  gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/<span class="variable">"$quality"</span> \
+     -dNOPAUSE -dQUIET -dBATCH -sOutputFile=<span class="variable">"$output"</span> <span class="variable">"$input"</span>
+}
+<span class="comment"># pdfcompress icml26_robust_metrics.pdf icml_draft.pdf prepress</span></code></pre>
+
+            <h3>Image frames to video</h3>
+            <pre><code><span class="comment"># frames2vid ./rendered_frames/ 30 output.mp4</span>
+<span class="function">frames2vid</span>() {
+  ffmpeg -framerate <span class="variable">"$fps"</span> -pattern_type glob -i <span class="string">"${dir}/*.png"</span> \
+         -c:v libx264 -pix_fmt yuv420p -crf 18 <span class="variable">"$output"</span>
+}</code></pre>
+
+            <h3>Video compression</h3>
+
+            <p>Uses the baseline H.264 profile and level 3.0 for compatibility across browsers, presentation software, and mobile devices:</p>
+
+            <pre><code><span class="comment"># vidcompress input.mp4 [output.mp4]</span>
+<span class="function">vidcompress</span>() {
+  ffmpeg -i <span class="variable">"$input"</span> -vcodec libx264 -pix_fmt yuv420p \
+         -profile:v baseline -level 3.0 <span class="variable">"$output"</span>
+}
+<span class="comment"># vidcompress diffusion.mp4 diffusion_ppt.mp4</span></code></pre>
+
+            <h3>rsync shortcuts</h3>
+
+            <p>The <code>-z</code> flag compresses during transfer (useful over SSH to remote clusters), and <code>--inplace</code> avoids creating temporary copies on the remote, which matters when pushing large checkpoints to a shared filesystem:</p>
+
+            <pre><code><span class="comment"># Upload (with compression, resume, and common excludes)</span>
+<span class="keyword">alias</span> rup=<span class="string">"rsync -avzP --inplace --exclude='.git' --exclude='__pycache__' --exclude='wandb'"</span>
+<span class="comment"># Download</span>
+<span class="keyword">alias</span> rdn=<span class="string">"rsync -avzP --inplace"</span>
+
+<span class="comment"># rup mvdream-sd21.ckpt ccvl32:/datasets/spaul/ckpt/</span>
+<span class="comment"># rdn dsai:/scratch/spaul27/results/ ./results/</span></code></pre>
+
+            <h3>Universal extract</h3>
+            <pre><code><span class="comment"># Handles tar, zip, gz, bz2, xz, 7z, rar</span>
+<span class="function">extract</span>() {
+  <span class="keyword">case</span> <span class="variable">"$1"</span> <span class="keyword">in</span>
+    *.tar.gz|*.tgz)   tar xzf <span class="variable">"$1"</span> ;;
+    *.tar.xz|*.txz)   tar xJf <span class="variable">"$1"</span> ;;
+    *.zip)             unzip <span class="variable">"$1"</span> ;;
+    *.7z)              7z x <span class="variable">"$1"</span> ;;
+    ...
+  <span class="keyword">esac</span>
+}</code></pre>
+
+
+            <!-- ============================================================ -->
+            <h2 id="dotfiles">Dotfiles</h2>
+
+            <p>The complete config files referenced above:</p>
+
+            <ul>
+                <li><code>~/.zshrc</code> — shell config, plugins, aliases, workflow functions</li>
+                <li><code>~/.p10k.zsh</code> — Powerlevel10k prompt segments and colors</li>
+                <li><code>~/.gitconfig</code> — delta pager configuration</li>
+                <li><code>~/.config/lsd/config.yaml</code> — lsd icon and sorting settings</li>
+                <li><code>~/.neofetch-funky.conf</code> — custom neofetch layout with macOS metrics</li>
+            </ul>
+
+            <div class="callout">
+                After changing <code>~/.zshrc</code> or <code>~/.p10k.zsh</code>, run <code>source ~/.zshrc</code> or open a new terminal tab. Powerlevel10k re-reads its config instantly — no restart needed.
+            </div>
+
+        </article>
+
+        <section id="comments" style="padding-top:40px; border-top:1px solid var(--border-light);">
+            <h2 style="font-size:26px; margin-bottom:24px;">Comments</h2>
+            <script src="https://giscus.app/client.js"
+                data-repo="mvp18/mvp18.github.io"
+                data-repo-id="MDEwOlJlcG9zaXRvcnkyMjI3OTAzNzA="
+                data-category="General"
+                data-category-id="DIC_kwDODUeC4s4C6VVd"
+                data-mapping="pathname"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="light"
+                data-lang="en"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async>
+            </script>
+        </section>
+    </div>
+</body>
+</html>
