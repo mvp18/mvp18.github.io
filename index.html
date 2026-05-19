@@ -104,6 +104,39 @@ pageheading {
 .scrollable-list {
   max-height: 120px;
   overflow-y: auto;
+  overflow-x: auto;
+}
+
+.scrollable-list ul {
+  list-style: none;
+  padding-left: 1.4em;
+  margin: 0;
+}
+
+.scrollable-list li {
+  display: flex;
+  gap: 1ch;
+  align-items: baseline;
+  position: relative;
+  margin-bottom: 4px;
+  white-space: nowrap;
+}
+
+.scrollable-list li::before {
+  content: "\2022";
+  position: absolute;
+  left: -1em;
+  color: inherit;
+  line-height: inherit;
+}
+
+.scrollable-list li > strong:first-child {
+  flex: 0 0 10ch;
+  font-variant-numeric: tabular-nums;
+}
+
+.scrollable-list .news-text {
+  flex: 0 0 auto;
 }
 
 span.highlight {
@@ -139,6 +172,25 @@ video {
   border-radius: 10px;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
   background: #000;
+}
+
+.ntp-teaser img.teaser-poster,
+.ntp-teaser video.teaser-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ntp-teaser video.teaser-video {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.ntp-teaser.is-hovering video.teaser-video {
+  opacity: 1;
 }
 
 .ntp-teaser video {
@@ -488,19 +540,20 @@ th {
                     <sectionheading>News</sectionheading>
                     <div class="scrollable-list">
                         <ul>
-                          <li><strong>[Apr 2026]</strong>&nbsp; Attended <a href="https://cs.nyu.edu/~fouhey/NYCVision2026/" target="_blank"> NYC Vision Day </a> to present research on 3D parts and metrics.</li>
-                          <li><strong>[Feb 2026]</strong>&nbsp; One paper on 3D part segmentation and labelling accepted to <a href="https://cvpr.thecvf.com/Conferences/2026" target="_blank"> CVPR 2026 Findings </a>.</li>
-                          <li><strong>[Aug 2025]</strong>&nbsp; Started my Ph.D. in Computer Science at Johns Hopkins University.</li>
-                          <li><strong>[Jun 2025]</strong>&nbsp; One paper on sparse-view scene reconstruction accepted to <a href="https://jmlr.org/tmlr/" target="_blank">Transactions on Machine Learning Research (TMLR)</a>.</li>
-                          <li><strong>[Sep 2024]</strong>&nbsp; One paper accepted to <a href="https://3d-in-the-wild.github.io/" target="_blank">ECCV Wild3D 2024</a>.</li>  
-                          <li><strong>[May 2024]</strong>&nbsp; Defended my Master's thesis on sparse-view 360&deg scene reconstruction using 2D Diffusion Priors.</li>
-                          <li><strong>[Apr 2024]</strong>&nbsp; Awarded <a href="https://www.uni-saarland.de/studieren/deutschlandstipendium.html">Deutschland Stipendium</a> for strong academic performance during Master's.</li>
-                          <li><strong>[Apr 2022]</strong>&nbsp; Started my Master's at Universität des Saarlandes.</li>
-                          <li><strong>[Aug 2021]</strong>&nbsp; Two papers accepted to <a href="https://iccv2021.thecvf.com/" target="_blank">ICCV 2021</a>. 1 main track and 1 workshop.</li>
-                          <li><strong>[Jun 2021]</strong>&nbsp; One paper on singing voice detection accepted to <a href="https://www.interspeech2021.org/" target="_blank">Interspeech 2021</a>.</li>
-                          <li><strong>[May 2020]</strong>&nbsp; Graduated from IIT Kharagpur after 4 wonderful years.</li>
-                          <li><strong>[Dec 2018]</strong>&nbsp; Presented my first research paper at <a href="https://cvit.iiit.ac.in/icvgip18/">ICVGIP 2018</a> held at IIIT Hyderabad.</li>
-                          <li><strong>[Jul 2016]</strong>&nbsp; Started my journey at IIT Kharagpur as an undergrad.</li>
+	                          <li><strong>[May 2026]</strong><span class="news-text">Recognized as <a href="https://x.com/CVPR/status/2056432742208876945" target="_blank">outstanding reviewer</a> for CVPR 2026.</span></li>
+	                          <li><strong>[Apr 2026]</strong><span class="news-text">Attended <a href="https://cs.nyu.edu/~fouhey/NYCVision2026/" target="_blank">NYC Vision Day</a> to present research on 3D parts and metrics.</span></li>
+	                          <li><strong>[Feb 2026]</strong><span class="news-text">One paper on 3D part segmentation and labelling accepted to <a href="https://cvpr.thecvf.com/Conferences/2026" target="_blank">CVPR 2026 Findings</a>.</span></li>
+	                          <li><strong>[Aug 2025]</strong><span class="news-text">Started my Ph.D. in Computer Science at Johns Hopkins University.</span></li>
+	                          <li><strong>[Jun 2025]</strong><span class="news-text">One paper on sparse-view scene reconstruction accepted to <a href="https://jmlr.org/tmlr/" target="_blank">Transactions on Machine Learning Research (TMLR)</a>.</span></li>
+	                          <li><strong>[Sep 2024]</strong><span class="news-text">One paper accepted to <a href="https://3d-in-the-wild.github.io/" target="_blank">ECCV Wild3D 2024</a>.</span></li>
+	                          <li><strong>[May 2024]</strong><span class="news-text">Defended my Master's thesis on sparse-view 360&deg scene reconstruction using 2D Diffusion Priors.</span></li>
+	                          <li><strong>[Apr 2024]</strong><span class="news-text">Awarded <a href="https://www.uni-saarland.de/studieren/deutschlandstipendium.html">Deutschland Stipendium</a> for strong academic performance during Master's.</span></li>
+	                          <li><strong>[Apr 2022]</strong><span class="news-text">Started my Master's at Universität des Saarlandes.</span></li>
+	                          <li><strong>[Aug 2021]</strong><span class="news-text">Two papers accepted to <a href="https://iccv2021.thecvf.com/" target="_blank">ICCV 2021</a>. 1 main track and 1 workshop.</span></li>
+	                          <li><strong>[Jun 2021]</strong><span class="news-text">One paper on singing voice detection accepted to <a href="https://www.interspeech2021.org/" target="_blank">Interspeech 2021</a>.</span></li>
+	                          <li><strong>[May 2020]</strong><span class="news-text">Graduated from IIT Kharagpur after 4 wonderful years.</span></li>
+	                          <li><strong>[Dec 2018]</strong><span class="news-text">Presented my first research paper at <a href="https://cvit.iiit.ac.in/icvgip18/">ICVGIP 2018</a> held at IIIT Hyderabad.</span></li>
+	                          <li><strong>[Jul 2016]</strong><span class="news-text">Started my journey at IIT Kharagpur as an undergrad.</span></li>
                         </ul>
                     </div>
                 </td>
@@ -521,6 +574,50 @@ th {
       </tbody></table>
 
       <div><em>* denotes equal contribution</em></div>
+
+	      <table class="paper-entry hover-video-table joint-cycle" data-joint-cycle="syscon3d" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+	        <tr bgcolor="#ffffd0">
+	          <td style="padding:20px;width:25%;vertical-align:middle">
+	            <div class="ntp-teaser">
+	              <img class="teaser-poster" src="pubs/syscon3d_teaser.jpg" alt="Teaser figure: learned 3D backbones hallucinate dense geometry on cross-scene, repeated, and Gaussian-noise inputs.">
+	              <video class="teaser-video" muted loop playsinline webkit-playsinline preload="metadata">
+	                <source src="pubs/syscon3d_teaser.mp4" type="video/mp4">
+	                Your browser does not support the video tag.
+	              </video>
+	            </div>
+	          </td>
+	          <td width="67%" valign="top">
+	            <papertitle>Can These Views Be One Scene? Evaluating Multiview 3D Consistency when 3D Foundation Models Hallucinate</papertitle><br>
+	            <span class="joint-authors" data-joint-container="syscon3d">
+	              <span class="joint-author" data-group="syscon3d"><strong>Soumava Paul*</strong>,&nbsp;</span>
+	              <span class="joint-author" data-group="syscon3d"><a href="https://toshi2k2.github.io/" target="_blank">Prakhar Kaushik*</a>,&nbsp;</span>
+	            </span>
+	            <a href="https://www.cs.jhu.edu/~ayuille/" target="_blank">Alan Yuille</a>
+	            <br>
+	            <em>arXiv 2026</em>
+	            <br>
+
+	              <div class="paper" id="syscon3d">
+	              <a href="javascript:toggleblock('syscon3dabs')"><font color="red">abstract</font></a> /
+	              <a shape="rect" href="javascript:togglebib('syscon3d')" class="togglebib"><font color="red">bibtex</font></a> /
+	              <a href="https://arxiv.org/abs/2605.18754" target="_blank"><font color="red">arXiv</font></a> /
+	              <a href="https://mvp18.github.io/3d-consistency-metrics" target="_blank"><font color="red">project page</font></a>
+	              <br>
+
+	              <p align="justify"> <i id="syscon3dabs" class="paper-abstract">Multiview 3D evaluation assumes that the images being scored are observations of one static 3D scene. This assumption can fail in NVS and sparse-view reconstruction: inputs or generated outputs may contain artifacts, outlier frames, repeated views, or noise, yet still receive high 3D consistency scores. Existing reference-based metrics require ground truth, while ground-truth-free metrics such as MEt3R depend on learned reconstruction backbones whose failure modes are poorly characterized. We study this reliability problem by comparing neural reconstruction priors with classical geometric verification. We introduce SysCON3D, a controlled robustness benchmark for multiview 3D consistency, and a parametric family that decomposes neural metrics into backbone, residual, and aggregation components. This family recovers MEt3R and yields variants up to 3&times; more robust. Our analysis shows that VGGT, MASt3R, DUSt3R, and Fast3R can hallucinate dense geometry and cross-view support for unrelated scenes, repeated images, and random noise. We introduce COLMAP-based metrics that use matches, registration, dense support, and reconstruction failure as failure-aware consistency signals. On real NVS outputs and a structured human study, these metrics achieve up to 4&times; higher correlation with human judgments than MEt3R.</i></p>
+
+    <pre xml:space="preserve">
+      @article{paul2026views,
+      title={Can These Views Be One Scene? Evaluating Multiview 3D Consistency when 3D Foundation Models Hallucinate},
+      author={Paul, Soumava and Kaushik, Prakhar and Yuille, Alan},
+      journal={arXiv preprint arXiv:2605.18754},
+      year={2026}
+    </pre>
+	              </div>
+	              <p class="paper-tldr"><i>An automatic, ground-truth-free way to judge whether multi-view images are consistent with one 3D scene.</i></p>
+	          </td>
+	        </tr>
+	      </table>
 
 	      <table class="paper-entry joint-cycle" data-joint-cycle="ntp" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
 	        <tr bgcolor="#ffffd0">
@@ -1167,6 +1264,35 @@ th {
 	    });
 	  })();
 	</script>
+	<script>
+	  // Generic hover-to-play for any table with class "hover-video-table". On hover, fades
+	  // in <video class="teaser-video"> over the poster <img> via the .is-hovering class.
+	  (function () {
+	    var tables = document.querySelectorAll('table.hover-video-table');
+	    tables.forEach(function (table) {
+	      var teaser = table.querySelector('.ntp-teaser');
+	      var video = table.querySelector('.ntp-teaser video');
+	      if (!(video instanceof HTMLVideoElement)) {
+	        return;
+	      }
+	      function startVideo() {
+	        if (teaser) { teaser.classList.add('is-hovering'); }
+	        var p = video.play();
+	        if (p && typeof p.catch === 'function') {
+	          p.catch(function () { /* no-op */ });
+	        }
+	      }
+	      function stopVideo() {
+	        if (teaser) { teaser.classList.remove('is-hovering'); }
+	        video.pause();
+	        try { video.currentTime = 0; } catch (e) { /* no-op */ }
+	      }
+	      table.addEventListener('mouseenter', startVideo);
+	      table.addEventListener('mouseleave', stopVideo);
+	      stopVideo();
+	    });
+	  })();
+	</script>
 <script>
   (function () {
     var storageKey = 'preferred-color-scheme';
@@ -1236,6 +1362,9 @@ th {
 </script>
 <script xml:space="preserve" language="JavaScript">
 hideallbibs();
+</script>
+<script xml:space="preserve" language="JavaScript">
+  hideblock('syscon3dabs');
 </script>
 <script xml:space="preserve" language="JavaScript">
   hideblock('ntpabs');
