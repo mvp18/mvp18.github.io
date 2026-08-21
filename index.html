@@ -19,6 +19,11 @@
   --accent-color: #4169e1;
   --highlight-background: #ffffd0;
   --border-color: #dddddd;
+  --prompt-color: #2da44e;
+  --red-link-color: #cb2431;
+  --venue-background: rgba(45, 164, 78, 0.14);
+  --venue-text-color: #1a7f37;
+  --mono-font: 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
 }
 
 /* Design Credits: Jon Barron, Deepak Pathak and Saurabh Gupta*/
@@ -54,12 +59,21 @@ th {
   color: var(--text-color);
 }
 
-heading {
-  font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
-  font-size: 22px;
-  font-weight: 1000;
+heading,
+sectionheading {
+  font-family: var(--mono-font);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-color);
   display: block;
   margin: 0 0 12px;
+}
+
+heading::before,
+sectionheading::before {
+  content: "$ ";
+  color: var(--prompt-color);
+  font-weight: 700;
 }
 
 papertitle {
@@ -78,18 +92,65 @@ strong {
 
 strongred {
   font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
-  color: red;
+  color: var(--red-link-color);
   font-size: 14px;
   font-weight: 800;
 }
 
-sectionheading {
-  font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--text-color);
-  display: block;
-  margin: 0 0 12px;
+font[color="red"] {
+  color: var(--red-link-color);
+}
+
+.venue-badge {
+  display: inline-block;
+  font-family: var(--mono-font);
+  font-size: 12px;
+  font-weight: 700;
+  font-style: normal;
+  color: var(--venue-text-color);
+  background-color: var(--venue-background);
+  padding: 1px 8px;
+  border-radius: 4px;
+  line-height: 1.6;
+}
+
+.term-line {
+  font-family: var(--mono-font);
+}
+
+.term-prompt {
+  color: var(--prompt-color);
+  font-weight: 700;
+}
+
+#email {
+  font-family: var(--mono-font);
+}
+
+.term-cursor-line {
+  font-family: var(--mono-font);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 10px;
+  margin-top: 24px;
+}
+
+.term-cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  vertical-align: text-bottom;
+  background-color: var(--text-color);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .term-cursor {
+    animation: term-blink 1.1s steps(1) infinite;
+  }
+
+  @keyframes term-blink {
+    50% { opacity: 0; }
+  }
 }
 
 pageheading {
@@ -133,6 +194,9 @@ pageheading {
 .scrollable-list li > strong:first-child {
   flex: 0 0 10ch;
   font-variant-numeric: tabular-nums;
+  font-family: var(--mono-font);
+  font-size: 12.5px;
+  font-weight: 700;
 }
 
 .scrollable-list .news-text {
@@ -364,7 +428,15 @@ table[width="100%"][align="center"] {
 
   heading,
   sectionheading {
-    font-size: 20px;
+    font-size: 16px;
+  }
+
+  .term-cursor-line {
+    font-size: 16px;
+  }
+
+  .scrollable-list li > strong:first-child {
+    font-size: 14px;
   }
 
   pageheading {
@@ -414,6 +486,10 @@ table[width="100%"][align="center"] {
 
 :root.dark-mode {
   color-scheme: dark;
+  --prompt-color: #3fb950;
+  --red-link-color: #f47067;
+  --venue-background: rgba(63, 185, 80, 0.18);
+  --venue-text-color: #3fb950;
   --bg-color: #121212;
   --surface-color: #1f1f1f;
   --text-color: #f5f5f5;
@@ -421,7 +497,7 @@ table[width="100%"][align="center"] {
   --link-color: #8ab4f8;
   --link-hover-color: #fdd663;
   --accent-color: #a7c5ff;
-  --highlight-background: rgba(255, 255, 208, 0.08);
+  --highlight-background: rgba(63, 185, 80, 0.09);
   --border-color: #333333;
 }
 
@@ -448,12 +524,23 @@ th {
 }
   </style>
 
+  <script>
+    (function () {
+      var theme = 'dark';
+      try {
+        theme = localStorage.getItem('preferred-color-scheme-v2') || 'dark';
+      } catch (error) { /* no-op */ }
+      document.documentElement.classList.toggle('dark-mode', theme === 'dark');
+    })();
+  </script>
+
   <link rel="icon" type="image/png" href="images/jhu_logo.png" media="(prefers-color-scheme: light)">
   <link rel="icon" type="image/png" href="images/jhu_logo_light.png" media="(prefers-color-scheme: dark)">
   <script type="text/javascript" src="js/hidebib.js"></script>
   <title>Soumava Paul</title>
   <meta name="description" content="Soumava Paul — PhD student at Johns Hopkins University, working on computer vision and 3D reconstruction.">
   <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,600,400italic,600italic,300,300italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap' rel='stylesheet' type='text/css'>
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
   <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin=anonymous>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
@@ -477,7 +564,7 @@ th {
       <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
         <p align="center">
           <pageheading>Soumava Paul</pageheading><br>
-          <b>email</b>:
+          <span class="term-line"><span class="term-prompt">$</span> echo $EMAIL</span><br>
           <font id="email" style="display:inline;">
               <noscript><i>Please enable Javascript to view</i></noscript>
           </font>
@@ -489,7 +576,8 @@ th {
         </p>
 
         <td style="padding:2.5%;width:63%;vertical-align:middle">
-          <p>I am a first-year Ph.D. student in the 
+          <sectionheading>cat about.txt</sectionheading>
+          <p>I am a first-year Ph.D. student in the
             <a href="https://ccvl.jhu.edu/" target="_blank">CCVL</a> group at <a href="https://www.cs.jhu.edu/">Johns Hopkins University</a>, advised by
             Bloomberg Distinguished Professor <a href="https://www.cs.jhu.edu/~ayuille/" target="_blank">Alan Yuille</a>. 
             I completed my MSc. in 
@@ -537,7 +625,7 @@ th {
         <tbody>
             <tr>
                 <td style="padding:10px;width:100%;vertical-align:middle">
-                    <sectionheading>News</sectionheading>
+                    <sectionheading>tail -f news.log</sectionheading>
                     <div class="scrollable-list">
                         <ul>
                             <li><strong>[Jul 2026]</strong><span class="news-text">Attending <a href="https://icvss.dmi.unict.it/icvss2026/" target="_blank">ICVSS 2026</a> in Sicily, Italy.</span></li>
@@ -565,7 +653,7 @@ th {
 
       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
           <tr><td style="padding:10px;width:100%;vertical-align:middle">
-            <heading>Research</heading>
+            <heading>ls research/</heading>
             <p>
               I am interested in computer vision, specifically topics at the intersection of 3D reconstruction, metrics, parts, materials, generative modelling and 
               physical reasoning. In earlier years, my research spanned topics in domain generalization, zero-shot learning, music information retrieval and medical imaging. 
@@ -596,7 +684,7 @@ th {
 	            </span>
 	            <a href="https://www.cs.jhu.edu/~ayuille/" target="_blank">Alan Yuille</a>
 	            <br>
-	            <em>arXiv 2026</em>
+	            <span class="venue-badge">arXiv 2026</span>
 	            <br>
 
 	              <div class="paper" id="syscon3d">
@@ -651,7 +739,7 @@ th {
 	            <a href="https://anandbhattad.github.io/" target="_blank">Anand Bhattad</a>,
 	            <a href="https://www.cs.jhu.edu/~ayuille/" target="_blank">Alan Yuille</a>
             <br>
-            <em>CVPR 2026 Findings</em>
+            <span class="venue-badge">CVPR 2026 Findings</span>
             <br>
 
               <div class="paper" id="ntp">
@@ -687,7 +775,7 @@ th {
               <a href="https://toshi2k2.github.io/" target="_blank">Prakhar Kaushik</a>,
               <a href="https://www.cs.jhu.edu/~ayuille/" target="_blank">Alan Yuille</a>
               <br>
-              <em>TMLR 2025</em>
+              <span class="venue-badge">TMLR 2025</span>
               <br>
 
                 <div class="paper" id="gscenes">
@@ -755,7 +843,7 @@ th {
               <a href="https://scholar.google.com/citations?user=z76PBfYAAAAJ&hl=en" target="_blank">Bernt Schiele</a>,
               <a href="https://janericlenssen.github.io/" target="_blank">Jan Eric Lenssen</a>
               <br>
-              <em>ECCV Wild3D 2024</em>
+              <span class="venue-badge">ECCV Wild3D 2024</span>
               <br>
 
                 <div class="paper" id="sp2360">
@@ -807,7 +895,7 @@ th {
               </span>
               <a href="https://scholar.google.com/citations?user=xtgxW9gAAAAJ&hl=en" target="_blank">Soma Biswas</a>
               <br>
-              <em>ICCV 2021</em>
+              <span class="venue-badge">ICCV 2021</span>
               <br>
 
                 <div class="paper" id="ucdr">
@@ -861,7 +949,7 @@ th {
               <a href="https://scholar.google.co.in/citations?user=TATEL2EAAAAJ&hl=en" target="_blank">K. Sreenivasa Rao</a>,
               <a href="https://scholar.google.com/citations?user=RmjEzGMAAAAJ&hl=en" target="_blank">PP Das</a>
               <br>
-              <em>INTERSPEECH 2021</em>
+              <span class="venue-badge">INTERSPEECH 2021</span>
               <br>
 
                 <div class="paper" id="kdsvd">
@@ -916,7 +1004,7 @@ th {
               <a href="https://scholar.google.co.in/citations?user=kB9KbxUAAAAJ&hl=en" target="_blank">Suranjana Samanta</a>,
               <a href="https://scholar.google.com/citations?user=vXDP-uEAAAAJ&hl=en" target="_blank">Karthik Sankaranarayanan</a>
               <br>
-              <em>ICCV 2021 MELEX Workshop</em> &nbsp <font color="red">(Oral)</font>
+              <span class="venue-badge">ICCV 2021 MELEX Workshop</span> &nbsp <font color="red">(Oral)</font>
               <br>
 
                 <div class="paper" id="gAL">
@@ -969,7 +1057,7 @@ th {
               <a href="https://scholar.google.com/citations?user=hFUdp_EAAAAJ&hl=en" target="_blank">Ramanathan Sethuraman</a>,
               <a href="https://scholar.google.com/citations?user=x-0vLSsAAAAJ&hl=en" target="_blank">Debdoot Sheet</a>
               <br>
-              <a href="https://cvit.iiit.ac.in/icvgip18/"><em>ICVGIP</em></a>, ACM, 2018 &nbsp <font color="red">(Oral)</font>
+              <a href="https://cvit.iiit.ac.in/icvgip18/"><span class="venue-badge">ICVGIP 2018</span></a>, ACM &nbsp <font color="red">(Oral)</font>
               <br>
 
                 <div class="paper" id="aecnn">
@@ -1009,7 +1097,7 @@ th {
 
       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
         <tr><td style="padding:10px;width:100%;vertical-align:middle">
-          <heading>Side Quests</heading>
+          <heading>ls side_quests/</heading>
         </td></tr>
       </tbody></table>
       
@@ -1060,7 +1148,7 @@ th {
       <table width="100%" align="center" border="0" cellspacing="0" cellpadding="5">
         <tr>
           <td width="75%" valign="center" id="Service">
-            <sectionheading>&nbsp;&nbsp;Academic Service</sectionheading>
+            <sectionheading>cat service.txt</sectionheading>
             <ul>
               <li>Reviewer: <a href="https://openreview.net/group?id=TMLR" target="_blank">TMLR</a>,
                 <a href="https://iclr.cc" target="_blank">ICLR</a>,
@@ -1078,7 +1166,7 @@ th {
       <table width="100%" align="center" border="0" cellspacing="0" cellpadding="5">
         <tr>
           <td width="75%" valign="center" id="Teaching">
-            <sectionheading>&nbsp;&nbsp;Teaching</sectionheading>
+            <sectionheading>cat teaching.txt</sectionheading>
             <ul>
               <li><strong>[Teaching Award]</strong> Tutor, <a href="https://www.mia.uni-saarland.de/Teaching/dic23.shtml" target="_blank">Differential Equations in Image Processing and Computer Vision </a>
               (Winter Term 2023-24) by <a href="https://www.mia.uni-saarland.de/peter/index.shtml" target="_blank">Dr. Pascal Peter (UdS)</a></li>
@@ -1094,12 +1182,12 @@ th {
 
       <table width="100%" align="center" border="0" cellspacing="0" cellpadding="5">
         <tr><td width="75%" valign="center" id="Misc">
-            <sectionheading>&nbsp;&nbsp;Misc</sectionheading>
+            <sectionheading>cat misc.txt</sectionheading>
             <ul>
             <li>In my downtime, I like to play <a href="https://www.chess.com/member/clutch18/stats" target="_blank">chess</a>, tennis, pingpong, and football.</li>
             <li>I speak English, Bengali, Hindi, and beginner-level German.</li>
             <li>On weekends, I follow the <a href="https://www.youtube.com/watch?v=mIR3mTrjLOI" target="_blank">English Premier League</a> and overthink which players to pick for my 
-              <a href="https://fantasy.premierleague.com/entry/327035/history" target="_blank">fantasy football team</a>. My favorite footballers of all-time
+              <a href="https://fantasy.premierleague.com/entry/8721367/history" target="_blank">fantasy football team</a>. My favorite footballers of all-time
               are <a href="https://www.youtube.com/watch?v=C-CefuZ6h1k" target="_blank">Son Heung-min</a> and <a href="https://www.youtube.com/watch?v=RDsxKXa0PbA" target="_blank">Zlatan Ibrahimović</a>.
             </li>
             <li>I use <strong>mvp18</strong> as my web handle for social accounts, a nickname I came up with when I turned (you guessed it) 18! I had just cracked
@@ -1108,6 +1196,8 @@ th {
             </ul>
         </td></tr>
       </table>
+
+      <div class="term-cursor-line"><span class="term-prompt">$</span> <span class="term-cursor"></span></div>
 
       <div style="width:100%; text-align:center; margin-top:32px; padding-top:24px; border-top:1px solid var(--border-color);">
         <div style="margin-bottom:20px;">
@@ -1297,7 +1387,7 @@ th {
 	</script>
 <script>
   (function () {
-    var storageKey = 'preferred-color-scheme';
+    var storageKey = 'preferred-color-scheme-v2';
     var toggleButton = document.getElementById('theme-toggle-button');
     if (!toggleButton) {
       return;
@@ -1334,7 +1424,7 @@ th {
 
     var storedPreference = getStoredPreference();
     if (!storedPreference) {
-      storedPreference = 'light';
+      storedPreference = 'dark';
     }
 
     applyTheme(storedPreference);
@@ -1345,21 +1435,6 @@ th {
       setStoredPreference(nextTheme);
     });
 
-    if (window.matchMedia) {
-      var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      var mediaListener = function (event) {
-        if (getStoredPreference()) {
-          return;
-        }
-        applyTheme(event.matches ? 'dark' : 'light');
-      };
-
-      if (typeof mediaQuery.addEventListener === 'function') {
-        mediaQuery.addEventListener('change', mediaListener);
-      } else if (typeof mediaQuery.addListener === 'function') {
-        mediaQuery.addListener(mediaListener);
-      }
-    }
   })();
 </script>
 <script xml:space="preserve" language="JavaScript">
