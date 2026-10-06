@@ -133,3 +133,6 @@ dmypy.json
 
 # Claude Code
 CLAUDE.md
+
+# Full-res profile pic originals (GPS in EXIF); the site uses processed copies
+images/profile_pics/originals/

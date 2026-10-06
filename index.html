@@ -345,6 +345,24 @@ td[bgcolor] {
   display: block;
 }
 
+.profile-pic-frame {
+  aspect-ratio: 1 / 1;
+}
+
+.profile-pic-frame img {
+  width: 100%;
+  border-radius: 50%;
+  cursor: zoom-in;
+}
+
+.profile-note {
+  margin: 10px 0 0;
+  font-family: var(--mono-font);
+  font-size: 12.5px;
+  color: var(--muted-text-color);
+  text-align: center;
+}
+
 .header-actions {
   display: flex;
   justify-content: flex-end;
@@ -439,6 +457,10 @@ table[width="100%"][align="center"] {
     font-size: 14px;
   }
 
+  .profile-note {
+    font-size: 14px;
+  }
+
   pageheading {
     font-size: 30px;
   }
@@ -526,9 +548,9 @@ th {
 
   <script>
     (function () {
-      var theme = 'dark';
+      var theme = 'light';
       try {
-        theme = localStorage.getItem('preferred-color-scheme-v2') || 'dark';
+        theme = localStorage.getItem('preferred-color-scheme-v2') || 'light';
       } catch (error) { /* no-op */ }
       document.documentElement.classList.toggle('dark-mode', theme === 'dark');
     })();
@@ -539,6 +561,56 @@ th {
   <script type="text/javascript" src="js/hidebib.js"></script>
   <title>Soumava Paul</title>
   <meta name="description" content="Soumava Paul — PhD student at Johns Hopkins University, working on computer vision and 3D reconstruction.">
+  <!-- schema.org structured data: tells search engines who this page is about and which profiles are the same person -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "mainEntity": {
+      "@type": "Person",
+      "@id": "https://mvp18.github.io/#person",
+      "name": "Soumava Paul",
+      "givenName": "Soumava",
+      "familyName": "Paul",
+      "alternateName": "mvp18",
+      "url": "https://mvp18.github.io/",
+      "image": "https://mvp18.github.io/images/profile_pics/circle/pic_0005.jpg",
+      "description": "Computer vision researcher and Ph.D. student at Johns Hopkins University, working on 3D reconstruction.",
+      "jobTitle": "Ph.D. Student",
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Researcher"
+      },
+      "affiliation": {
+        "@type": "CollegeOrUniversity",
+        "name": "Johns Hopkins University",
+        "url": "https://www.jhu.edu/"
+      },
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Saarland University",
+          "url": "https://www.uni-saarland.de/"
+        },
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Indian Institute of Technology Kharagpur",
+          "url": "http://www.iitkgp.ac.in/"
+        }
+      ],
+      "knowsAbout": ["Computer Vision", "3D Reconstruction", "3D Part Segmentation", "Generative Modeling", "Physical Reasoning"],
+      "sameAs": [
+        "https://scholar.google.com/citations?user=DK7mUVEAAAAJ",
+        "https://orcid.org/0000-0002-6113-8084",
+        "https://dblp.org/pid/260/0294.html",
+        "https://github.com/mvp18",
+        "https://www.linkedin.com/in/mvp18/",
+        "https://x.com/__mvp18__",
+        "https://bsky.app/profile/mvp18.bsky.social"
+      ]
+    }
+  }
+  </script>
   <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,600,400italic,600italic,300,300italic' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap' rel='stylesheet' type='text/css'>
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
@@ -577,7 +649,7 @@ th {
 
         <td style="padding:2.5%;width:63%;vertical-align:middle">
           <sectionheading>cat about.txt</sectionheading>
-          <p>I am a first-year Ph.D. student in the
+          <p>I am a second-year Ph.D. student in the
             <a href="https://ccvl.jhu.edu/" target="_blank">CCVL</a> group at <a href="https://www.cs.jhu.edu/">Johns Hopkins University</a>, advised by
             Bloomberg Distinguished Professor <a href="https://www.cs.jhu.edu/~ayuille/" target="_blank">Alan Yuille</a>. 
             I completed my MSc. in 
@@ -616,7 +688,52 @@ th {
           </p>
         </td>
         <td style="padding:2.5%;width:40%;max-width:40%">
-          <a href="images/IMG_0174.jpg"><img style="width:100%;max-width:100%" alt="profile photo" src="images/IMG_0174-circle.png" class="hoverZoomLink"></a>
+          <div id="profile-pic" class="profile-pic-frame">
+            <noscript><a href="images/profile_pics/pic_0006.jpg"><img src="images/profile_pics/circle/pic_0006.jpg" alt="Photo of Soumava Paul"></a></noscript>
+          </div>
+          <script>
+            // Shuffle-bag: each load shows the next pic from a shuffled queue kept in localStorage,
+            // so visitors see every pic before any repeats (and never the same one twice in a row).
+            (function () {
+              var pics = ['pic_0001', 'pic_0002', 'pic_0003', 'pic_0004', 'pic_0005',
+                          'pic_0006', 'pic_0007', 'pic_0008', 'pic_0009'];
+              var storageKey = 'profile-pic-queue';
+              var state = null;
+              try {
+                state = JSON.parse(localStorage.getItem(storageKey));
+              } catch (error) { /* no-op */ }
+
+              var queue = (state && Array.isArray(state.queue) ? state.queue : []).filter(function (id) {
+                return pics.indexOf(id) !== -1;
+              });
+              if (!queue.length) {
+                queue = pics.slice();
+                for (var i = queue.length - 1; i > 0; i--) {
+                  var j = Math.floor(Math.random() * (i + 1));
+                  var tmp = queue[i];
+                  queue[i] = queue[j];
+                  queue[j] = tmp;
+                }
+                if (state && queue[0] === state.last) {
+                  queue.push(queue.shift());
+                }
+              }
+
+              var pic = queue.shift();
+              try {
+                localStorage.setItem(storageKey, JSON.stringify({ queue: queue, last: pic }));
+              } catch (error) { /* no-op */ }
+
+              var link = document.createElement('a');
+              link.href = 'images/profile_pics/' + pic + '.jpg';
+              var img = document.createElement('img');
+              img.src = 'images/profile_pics/circle/' + pic + '.jpg';
+              img.alt = 'Photo of Soumava Paul';
+              link.appendChild(img);
+              document.getElementById('profile-pic').appendChild(link);
+            })();
+          </script>
+          <p class="profile-note">Refresh for a novel view.</p>
         </td></tr>
       
       </table>
@@ -664,6 +781,53 @@ th {
       </tbody></table>
 
       <div><em>* denotes equal contribution</em></div>
+
+      <table class="paper-entry hover-video-table joint-cycle" data-joint-cycle="fure" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+        <tr>
+          <td style="padding:20px;width:25%;vertical-align:middle">
+            <div class="ntp-teaser" style="aspect-ratio: 64 / 27;">
+              <img class="teaser-poster" src="pubs/fure_teaser.jpg" alt="Teaser figure: six reconstructed furry animals with strand-level fur in a dark studio: tiger, fox, cat, beagle, panda, and a bison behind them.">
+              <video class="teaser-video" muted loop playsinline webkit-playsinline preload="metadata">
+                <source src="pubs/fure_teaser.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </td>
+          <td width="67%" valign="top">
+            <papertitle>FurE: Efficient Instance-Specific 3D Fur Reconstruction without Animal-Fur Datasets</papertitle><br>
+            <span class="joint-authors" data-joint-container="fure">
+              <span class="joint-author" data-group="fure"><a href="https://www.linkedin.com/in/srinjay-sarkar-1501b9112/" target="_blank">Srinjay Sarkar*</a>,&nbsp;</span>
+              <span class="joint-author" data-group="fure"><a href="https://toshi2k2.github.io/" target="_blank">Prakhar Kaushik*</a>,&nbsp;</span>
+            </span>
+            <strong>Soumava Paul</strong>,
+            <a href="https://www.cs.jhu.edu/~ayuille/" target="_blank">Alan Yuille</a>
+            <br>
+            <span class="venue-badge">arXiv 2026</span>
+            <br>
+
+              <div class="paper" id="fure">
+              <a href="javascript:toggleblock('fureabs')"><font color="red">abstract</font></a> /
+              <a shape="rect" href="javascript:togglebib('fure')" class="togglebib"><font color="red">bibtex</font></a> /
+              <a href="https://arxiv.org/abs/2609.35770" target="_blank"><font color="red">arXiv</font></a> /
+              <a href="https://github.com/toshi2k2/fure/tree/fure-defur-code/fure_defur" target="_blank"><font color="red">code</font></a> /
+              <a href="https://toshi2k2.github.io/fure/" target="_blank"><font color="red">project page</font></a>
+              <br>
+
+              <p align="justify"> <i id="fureabs" class="paper-abstract">Realistic and editable animal fur reconstruction from multi-view images is challenging due to fine-scale detail, self-occlusion and obfuscation, and, unlike human hair, the lack of animal-fur datasets. Fur usually covers most of an animal's body, with large inter-species and intra-species variability. We present FurE, an efficient strand-based animal fur reconstruction method that recovers a per-strand, editable groom by optimizing a root-conditioned latent field, decoded into strand geometry via a PCA-based decoder. We reconstruct a defurred animal body using local fur-thickness cues from a surface-constrained Gaussian Frosting representation together with part-based priors. We further show that a PCA-based decoder learned from human-hair strand data can alleviate animal-data scarcity while enabling substantially faster optimization. FurE achieves a 10&times; speedup in strand training over current SOTA dense per-strand optimization while retaining strand fidelity and generalizing across synthetic and real-world sequences, with quantitative and qualitative validation despite the reduction in training time.</i></p>
+
+      <pre xml:space="preserve">
+        @article{sarkar2026fure,
+          title={FurE: Efficient Instance-Specific 3D Fur Reconstruction without Animal-Fur Datasets},
+          author={Sarkar, Srinjay and Kaushik, Prakhar and Paul, Soumava and Yuille, Alan},
+          journal={arXiv preprint arXiv:2609.35770},
+          year={2026}
+        }
+      </pre>
+              </div>
+              <p class="paper-tldr"><i>Strand priors borrowed from human hair make editable, strand-level animal fur reconstruction 10&times; faster, with no animal-fur training data.</i></p>
+          </td>
+        </tr>
+      </table>
 
 	      <table class="paper-entry hover-video-table joint-cycle" data-joint-cycle="syscon3d" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
 	        <tr bgcolor="#ffffd0">
@@ -1424,7 +1588,7 @@ th {
 
     var storedPreference = getStoredPreference();
     if (!storedPreference) {
-      storedPreference = 'dark';
+      storedPreference = 'light';
     }
 
     applyTheme(storedPreference);
@@ -1439,6 +1603,9 @@ th {
 </script>
 <script xml:space="preserve" language="JavaScript">
 hideallbibs();
+</script>
+<script xml:space="preserve" language="JavaScript">
+  hideblock('fureabs');
 </script>
 <script xml:space="preserve" language="JavaScript">
   hideblock('syscon3dabs');
