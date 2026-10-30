@@ -205,6 +205,7 @@ pageheading {
 
 span.highlight {
   background-color: var(--highlight-background);
+  transition: background-color 0.45s ease;
 }
 
 pre {
@@ -317,6 +318,7 @@ video {
 tr[bgcolor],
 td[bgcolor] {
   background-color: var(--highlight-background) !important;
+  transition: background-color 0.45s ease;
 }
 
 .one {
@@ -361,6 +363,172 @@ td[bgcolor] {
   font-size: 12.5px;
   color: var(--muted-text-color);
   text-align: center;
+}
+
+/* Paper filters: chips under "ls research/" filter the papers by topic and type. */
+.paper-filters {
+  margin: 0 0 4px;
+  font-family: var(--mono-font);
+  font-size: 12.5px;
+}
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 8px;
+}
+
+.filter-chip {
+  padding: 2px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background-color: var(--surface-color);
+  color: var(--muted-text-color);
+  font: inherit;
+  line-height: 20px;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
+}
+
+.filter-chip:hover {
+  border-color: var(--venue-text-color);
+  color: var(--text-color);
+}
+
+.filter-chip:active {
+  transform: scale(0.96);
+}
+
+.filter-chip:focus-visible {
+  outline: 2px solid var(--link-hover-color);
+  outline-offset: 2px;
+}
+
+.filter-chip[aria-pressed="true"] {
+  border-color: var(--venue-text-color);
+  background-color: var(--venue-background);
+  color: var(--venue-text-color);
+}
+
+.filter-chip.is-empty {
+  opacity: 0.45;
+}
+
+.chip-count {
+  margin-left: 2px;
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+}
+
+.paper-list {
+  position: relative;
+  overflow-anchor: none;
+}
+
+.paper-entry.is-filtered-out {
+  display: none;
+}
+
+/* A paper on its way out is lifted out of the flow at its old spot, so the others can glide into the gap. */
+.paper-entry.is-leaving {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.paper-entry.is-shifting {
+  position: relative;
+  z-index: 1;
+}
+
+/* Highlights mark representative papers in the full list, so they fade out while a filter is on. */
+body.papers-filtered .paper-list tr[bgcolor] {
+  background-color: transparent !important;
+}
+
+body.papers-filtered span.highlight {
+  background-color: transparent;
+}
+
+.paper-empty {
+  margin: 0;
+  padding: 20px;
+  font-family: var(--mono-font);
+  font-size: 12.5px;
+  color: var(--muted-text-color);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  tr[bgcolor],
+  span.highlight,
+  .filter-chip {
+    transition: none;
+  }
+}
+
+/* MapMyVisitors world map in the footer: its script sizes the map to this box's width. */
+.visitor-map {
+  width: min(100%, 20rem);
+  margin: 0 auto;
+}
+
+/* The complete local basemap is drawn inside the widget's SVG; hide the provider's own raster map. */
+.visitor-map .mapmyvisitors-map {
+  background-image: none !important;
+  background-color: #2d78ad;
+}
+
+.visitor-map-expand {
+  display: block;
+  margin: 6px auto 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted-text-color);
+  font-family: var(--mono-font);
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.visitor-map-dialog {
+  width: min(94vw, 1200px);
+  max-width: 94vw;
+  max-height: 92vh;
+  margin: auto;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--surface-color);
+  color: var(--text-color);
+}
+
+.visitor-map-dialog::backdrop {
+  background: rgb(0 0 0 / 55%);
+}
+
+.visitor-map-close {
+  display: block;
+  margin: 0 0 12px auto;
+  padding: 4px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--surface-color);
+  color: var(--text-color);
+  font-family: var(--mono-font);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.visitor-map-dialog svg,
+.visitor-map-dialog img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #2d78ad;
 }
 
 .header-actions {
@@ -458,6 +626,11 @@ table[width="100%"][align="center"] {
   }
 
   .profile-note {
+    font-size: 14px;
+  }
+
+  .paper-filters,
+  .paper-empty {
     font-size: 14px;
   }
 
@@ -677,16 +850,13 @@ th {
 
         <td style="padding:2.5%;width:63%;vertical-align:middle">
           <sectionheading>cat about.txt</sectionheading>
-          <p>I am a second-year Ph.D. student in the
+          <p>I am a second-year Ph.D. student working on 3D and 4D computer vision, in the
             <a href="https://ccvl.jhu.edu/" target="_blank">CCVL</a> group at <a href="https://www.cs.jhu.edu/">Johns Hopkins University</a>, advised by
-            Bloomberg Distinguished Professor <a href="https://www.cs.jhu.edu/~ayuille/" target="_blank">Alan Yuille</a>. 
+            Bloomberg Distinguished Professor <a href="https://www.cs.jhu.edu/~ayuille/" target="_blank">Alan Yuille</a>. During my Ph.D., I have interned in the <a href="https://www.nec-labs.com/research/media-analytics/" target="_blank">Media Analytics</a> group at <a href="https://www.nec-labs.com/" target="_blank">NEC Laboratories America</a>, where I worked on self-improving simulation agents for autonomous driving.
             I completed my MSc. in 
             <a href="https://saarland-informatics-campus.de/en/msc-visual-computing/" target="_blank">Visual Computing</a> at 
-            <a href="https://www.uni-saarland.de/" target="_blank">Universität des Saarlandes</a>. My master thesis was on sparse-view 360&deg scene reconstruction using 2D 
-            diffusion priors, in <a href="https://www.mpi-inf.mpg.de/departments/computer-vision-and-machine-learning/people/bernt-schiele" target="_blank">Prof. Bernt Schiele's</a> 
+            <a href="https://www.uni-saarland.de/" target="_blank">Universität des Saarlandes</a>, where I worked on sparse-view 360° scene reconstruction for my master's thesis in <a href="https://www.mpi-inf.mpg.de/departments/computer-vision-and-machine-learning/people/bernt-schiele" target="_blank">Prof. Bernt Schiele's</a> 
             group at the <a href="https://www.mpi-inf.mpg.de/departments/computer-vision-and-machine-learning" target="_blank">Max-Planck-Institut für Informatik</a>.
-            During my master's, I interned in the <a href="https://astra-vision.github.io/" target="_blank">Astra Vision Group</a> at
-            <a href="https://www.inria.fr/fr/centre-inria-de-paris" target="_blank">Inria Paris</a>, where I worked on physics understanding of vision foundation models.
           </p>
           <p> Before moving to Europe, I was a data scientist at <a href="https://www.hp.com/in-en/hp-labs/research/overview.html" target="_blank">HP Inc India</a> where I 
             worked with <a href="https://scholar.google.ca/citations?user=daDIHuUAAAAJ&hl=en" target="_blank">Niranjan Damera Venkata</a> on time series forecasting 
@@ -798,19 +968,86 @@ th {
 
       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
           <tr><td style="padding:10px;width:100%;vertical-align:middle">
-            <heading>ls research/</heading>
+            <heading>ls research/<span data-ls-args></span></heading>
             <p>
-              I am interested in computer vision, specifically topics at the intersection of 3D reconstruction, metrics, parts, materials, generative modelling and 
-              physical reasoning. In earlier years, my research spanned topics in domain generalization, zero-shot learning, music information retrieval and medical imaging. 
+              I am interested in 3D and 4D computer vision, specifically topics at the intersection of 3D reconstruction, primitives, metrics, parts, materials, generative models, and world models for physics-grounded reasoning. In earlier years, my research spanned topics in domain generalization, zero-shot learning, music information retrieval and medical imaging. 
               Representative papers are <span class="highlight">highlighted</span>.
             </p>
+            <!-- Shown by the paper-filter script at the end of the body; chip counts are filled in there. -->
+            <div class="paper-filters" id="paper-filters" hidden>
+              <div class="filter-chips" role="group" aria-label="Filter papers by topic">
+                <button type="button" class="filter-chip" data-filter="topic" data-value="all" aria-pressed="true">All topics</button>
+                <button type="button" class="filter-chip" data-filter="topic" data-value="3d-reconstruction" aria-pressed="false">3D Reconstruction <span class="chip-count"></span></button>
+                <button type="button" class="filter-chip" data-filter="topic" data-value="3d-understanding" aria-pressed="false">3D Understanding &amp; Evaluation <span class="chip-count"></span></button>
+                <button type="button" class="filter-chip" data-filter="topic" data-value="recognition-retrieval" aria-pressed="false">Recognition &amp; Retrieval <span class="chip-count"></span></button>
+              </div>
+              <div class="filter-chips" role="group" aria-label="Filter papers by type">
+                <button type="button" class="filter-chip" data-filter="type" data-value="all" aria-pressed="true">All types</button>
+                <button type="button" class="filter-chip" data-filter="type" data-value="conference" aria-pressed="false">Conference <span class="chip-count"></span></button>
+                <button type="button" class="filter-chip" data-filter="type" data-value="journal" aria-pressed="false">Journal <span class="chip-count"></span></button>
+                <button type="button" class="filter-chip" data-filter="type" data-value="preprint" aria-pressed="false">Preprint <span class="chip-count"></span></button>
+                <button type="button" class="filter-chip" data-filter="type" data-value="workshop" aria-pressed="false">Workshop <span class="chip-count"></span></button>
+              </div>
+            </div>
           </td>
         </tr>
       </tbody></table>
 
       <div><em>* denotes equal contribution</em></div>
 
-      <table class="paper-entry hover-video-table joint-cycle" data-joint-cycle="fure" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+      <!-- Papers, newest first. Each one's data-topics (space-separated) and data-type drive the filter chips above. -->
+      <div id="paper-list" class="paper-list">
+      <table class="paper-entry hover-video-table joint-cycle" data-joint-cycle="hexels" data-topics="3d-reconstruction" data-type="preprint" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+        <tr bgcolor="#ffffd0">
+          <td style="padding:20px;width:25%;vertical-align:middle">
+            <div class="ntp-teaser" style="aspect-ratio: 2 / 1;">
+              <img class="teaser-poster" src="pubs/hexels_teaser.jpg" alt="Teaser figure: a toy bulldozer rendered at the same 19.3 MB model memory by 2DGS, with blurred treads at 25.01 dB, and by Hexels, with sharp tread links at 29.97 dB.">
+              <video class="teaser-video" muted loop playsinline webkit-playsinline preload="metadata">
+                <source src="pubs/hexels_teaser.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </td>
+          <td width="67%" valign="top">
+            <papertitle>Honeycomb-Surfels: Compact Hexagonal Primitives for Efficient Scene Rendering and Reconstruction</papertitle><br>
+            <span class="joint-authors" data-joint-container="hexels">
+              <span class="joint-author" data-group="hexels"><a href="https://toshi2k2.github.io/" target="_blank">Prakhar Kaushik*</a>,&nbsp;</span>
+              <span class="joint-author" data-group="hexels"><strong>Soumava Paul*</strong>,&nbsp;</span>
+            </span>
+            <a href="https://www.cs.jhu.edu/~ayuille/" target="_blank">Alan Yuille</a>
+            <br>
+            <span class="venue-badge">arXiv 2026</span>
+            <br>
+
+              <div class="paper" id="hexels">
+              <a href="javascript:toggleblock('hexelsabs')"><font color="red">abstract</font></a> /
+              <a shape="rect" href="javascript:togglebib('hexels')" class="togglebib"><font color="red">bibtex</font></a> /
+              <a href="https://arxiv.org/abs/2610.37668" target="_blank"><font color="red">arXiv</font></a> /
+              <a href="https://github.com/honeycomb-surfels/hexels" target="_blank"><font color="red">code</font></a> /
+              <a href="https://honeycomb-surfels.github.io/" target="_blank"><font color="red">project page</font></a> /
+              <a href="https://honeycomb-surfels.github.io/release-video/release.mp4" target="_blank"><font color="red">video</font></a>
+              <br>
+
+              <p align="justify"> <i id="hexelsabs" class="paper-abstract">Novel view synthesis and 3D reconstruction have advanced rapidly with radiance fields and splatting, yet their memory and computational demands limit their use in resource-constrained settings. We introduce Hexels: novel planar hexagonal surface elements with a first-order spatial color field for efficient 3D scene and 2D image representation. Hexels exploit locally planar regions with smoothly varying appearance using fewer, larger primitives. Their hexagonal support provides an area- and boundary-efficient domain, while the local color field captures appearance variation within each primitive. Across 34 scenes, Hexels improve PSNR over memory-matched 2DGS by 4.53&ndash;7.38&thinsp;dB across datasets while requiring lower training VRAM. We further ablate Hexels by showing that per primitive, Hexels outperform 2DGS by upto 4.74&thinsp;dB while using lower training VRAM and having 2.31&times; faster FPS. Even in unconstrained settings, Hexels offers complementary quality-memory trade-offs. For efficient 3D surface reconstruction, Hexels reduce error by 28.9% compared with memory-matched 2DGS across 15 DTU scans. On 6 Tanks and Temples surface scenes, Hexels achieves the highest mean F1 among compared methods (34.38%, versus 31.72% for 2DGS). We further also show that Hexels, as a general primitive, improves 2D image representation over Image-GS. Hexels push the Pareto frontier on the quality-efficiency trade-off of surface-aligned primitives.</i></p>
+
+      <pre xml:space="preserve">
+        @misc{kaushik2026honeycombsurfelscompacthexagonalprimitives,
+          title={Honeycomb-Surfels: Compact Hexagonal Primitives for Efficient Scene Rendering and Reconstruction},
+          author={Prakhar Kaushik and Soumava Paul and Alan Yuille},
+          year={2026},
+          eprint={2610.37668},
+          archivePrefix={arXiv},
+          primaryClass={cs.CV},
+          url={https://arxiv.org/abs/2610.37668},
+        }
+      </pre>
+              </div>
+              <p class="paper-tldr"><i>Hexagonal primitives with a linear color field cover smooth, near-planar regions with fewer and more expressive surface elements, pushing the quality-efficiency Pareto frontier across novel view synthesis, surface reconstruction and 2D images.</i></p>
+          </td>
+        </tr>
+      </table>
+
+      <table class="paper-entry hover-video-table joint-cycle" data-joint-cycle="fure" data-topics="3d-reconstruction" data-type="preprint" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
         <tr>
           <td style="padding:20px;width:25%;vertical-align:middle">
             <div class="ntp-teaser" style="aspect-ratio: 64 / 27;">
@@ -857,7 +1094,7 @@ th {
         </tr>
       </table>
 
-	      <table class="paper-entry hover-video-table joint-cycle" data-joint-cycle="syscon3d" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+	      <table class="paper-entry hover-video-table joint-cycle" data-joint-cycle="syscon3d" data-topics="3d-understanding" data-type="preprint" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
 	        <tr bgcolor="#ffffd0">
 	          <td style="padding:20px;width:25%;vertical-align:middle">
 	            <div class="ntp-teaser">
@@ -890,10 +1127,11 @@ th {
 
     <pre xml:space="preserve">
       @article{paul2026views,
-      title={Can These Views Be One Scene? Evaluating Multiview 3D Consistency when 3D Foundation Models Hallucinate},
-      author={Paul, Soumava and Kaushik, Prakhar and Yuille, Alan},
-      journal={arXiv preprint arXiv:2605.18754},
-      year={2026}
+        title={Can These Views Be One Scene? Evaluating Multiview 3D Consistency when 3D Foundation Models Hallucinate},
+        author={Paul, Soumava and Kaushik, Prakhar and Yuille, Alan},
+        journal={arXiv preprint arXiv:2605.18754},
+        year={2026}
+      }
     </pre>
 	              </div>
 	              <p class="paper-tldr"><i>An automatic, ground-truth-free way to judge whether multi-view images are consistent with one 3D scene.</i></p>
@@ -901,7 +1139,7 @@ th {
 	        </tr>
 	      </table>
 
-	      <table class="paper-entry joint-cycle" data-joint-cycle="ntp" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+	      <table class="paper-entry joint-cycle" data-joint-cycle="ntp" data-topics="3d-understanding" data-type="conference" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
 	        <tr bgcolor="#ffffd0">
 	          <td style="padding:20px;width:25%;vertical-align:middle">
 	            <div class="ntp-teaser" data-legend-start="2.5">
@@ -944,11 +1182,13 @@ th {
 	              <p align="justify"> <i id="ntpabs" class="paper-abstract">We address semantic 3D part segmentation: decomposing objects into parts with meaningful names. While datasets exist with part annotations, their definitions are inconsistent across datasets, limiting robust training. Previous methods produce unlabeled decompositions or retrieve single parts without complete shape annotations. We propose ALIGN-Parts, which formulates part naming as a direct set alignment task. Our method decomposes shapes into partlets&mdash;implicit 3D part representations&mdash;matched to part descriptions via bipartite assignment. We combine geometric cues from 3D part fields, appearance from multi-view vision features, and semantic knowledge from language-model-generated affordance descriptions. Text-alignment loss ensures partlets share embedding space with text, enabling a theoretically open-vocabulary matching setup, given sufficient data. Our efficient and novel, one-shot, 3D part segmentation and naming method finds applications in several downstream tasks, including serving as a scalable annotation engine. As our model supports zero-shot matching to arbitrary descriptions and confidence-calibrated predictions for known categories, with human verification, we create a unified ontology that aligns PartNet, 3DCoMPaT++, and Find3D, consisting of 1,794 unique 3D parts. We also show examples from our newly created Tex-Parts dataset. We also introduce 2 novel metrics appropriate for the named 3D part segmentation task.</i></p>
 
     <pre xml:space="preserve">
-      @article{paul2025name,
-      title={Name That Part: 3D Part Segmentation and Naming},
-      author={Paul, Soumava and Kaushik, Prakhar and Vaidya, Ankit and Bhattad, Anand and Yuille, Alan},
-      journal={arXiv preprint arXiv:2512.18003},
-      year={2025}	
+      @inproceedings{paul2026name,
+        title={Name that part: 3d part segmentation and naming},
+        author={Paul, Soumava and Kaushik, Prakhar and Vaidya, Ankit and Bhattad, Anand and Yuille, Alan},
+        booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+        pages={1808--1817},
+        year={2026}
+      }
     </pre>
               </div>
 	              <p class="paper-tldr"><i>Set-level matching avoids part-count supervision and post-hoc clustering, making named part segmentation dramatically faster at inference.</i></p>
@@ -956,7 +1196,7 @@ th {
         </tr>
       </table>
 
-      <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+      <table class="paper-entry" data-topics="3d-reconstruction" data-type="journal" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
         <tr bgcolor="#ffffd0">
           <td style="padding:20px;width:25%;vertical-align:middle">
             <img src="pubs/dg_gscenes.jpg" width=300 height=170 style="border-style: none">
@@ -1006,8 +1246,8 @@ th {
         </tr>
       </table>
 
-      <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-        <tr onmouseout="sp2360_stop()" onmouseover="sp2360_start()" bgcolor="#ffffd0">
+      <table class="paper-entry" data-topics="3d-reconstruction" data-type="workshop" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+        <tr onmouseout="sp2360_stop()" onmouseover="sp2360_start()">
           <td style="padding:20px;width:25%;vertical-align:middle">
             <div class="one">
               <div class="two" id='sp2360_image'><video  width=100% height=100% muted autoplay loop>
@@ -1074,7 +1314,7 @@ th {
         </tr>
       </table>
 
-      <table class="paper-entry joint-cycle" data-joint-cycle="ucdr" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+      <table class="paper-entry joint-cycle" data-joint-cycle="ucdr" data-topics="recognition-retrieval" data-type="conference" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
         <tr>
           <td style="padding:20px;width:25%;vertical-align:middle">
             <img src="pubs/snmpnet.jpg" width=300 height=170 style="border-style: none">
@@ -1129,7 +1369,7 @@ th {
       </table>
 
 
-      <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+      <table class="paper-entry" data-topics="recognition-retrieval" data-type="conference" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
         <tr>
           <td style="padding:20px;width:25%;vertical-align:middle">
             <img src="pubs/spec.png" width=300 height=200 style="border-style: none">
@@ -1181,7 +1421,7 @@ th {
         </tr>
       </table>
 
-      <table class="paper-entry joint-cycle" data-joint-cycle="gal" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+      <table class="paper-entry joint-cycle" data-joint-cycle="gal" data-topics="recognition-retrieval" data-type="workshop" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
         <tr>
           <td style="padding:20px;width:25%;vertical-align:middle">
             <img src="pubs/cheetah.png" width=300 height=264 style="border-style: none">
@@ -1233,7 +1473,7 @@ th {
         </tr>
       </table>
 
-      <table class="paper-entry joint-cycle" data-joint-cycle="aecnn" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+      <table class="paper-entry joint-cycle" data-joint-cycle="aecnn" data-topics="recognition-retrieval" data-type="conference" width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
         <tr>
           <td style="padding:20px;width:25%;vertical-align:middle">
             <img src="pubs/3234AE-CNN__00015400_001_heatmap.png" width=300 height=264 style="border-style: none">
@@ -1286,6 +1526,8 @@ th {
             </td>
         </tr>
       </table>
+      <p class="paper-empty" data-paper-empty hidden>Nothing here (yet). Try another topic or type.</p>
+      </div>
 
       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
         <tr><td style="padding:10px;width:100%;vertical-align:middle">
@@ -1377,13 +1619,14 @@ th {
             <sectionheading>cat misc.txt</sectionheading>
             <ul>
             <li>In my downtime, I like to play <a href="https://www.chess.com/member/clutch18/stats" target="_blank">chess</a>, tennis, pingpong, and football.</li>
-            <li>I speak English, Bengali, Hindi, and beginner-level German.</li>
             <li>On weekends, I follow the <a href="https://www.youtube.com/watch?v=mIR3mTrjLOI" target="_blank">English Premier League</a> and overthink which players to pick for my 
               <a href="https://fantasy.premierleague.com/entry/8721367/history" target="_blank">fantasy football team</a>. My favorite footballers of all-time
               are <a href="https://www.youtube.com/watch?v=C-CefuZ6h1k" target="_blank">Son Heung-min</a> and <a href="https://www.youtube.com/watch?v=RDsxKXa0PbA" target="_blank">Zlatan Ibrahimović</a>.
             </li>
-            <li>I use <strong>mvp18</strong> as my web handle for social accounts, a nickname I came up with when I turned (you guessed it) 18! I had just cracked
-            <a href="https://www.quora.com/Is-IIT-JEE-the-toughest-exam-in-the-world-What-would-it-be-ranked" target="_blank">IIT-JEE</a> and felt like a real hotshot back then. The next 4 years couldn't have been any more humbling :')</li>
+            <li>I also keep a running list of the movies and TV shows I watch on <a href="https://www.imdb.com/user/p.vi2qpufqjk3n3ibtukivd2myva/ratings/?sort=top_rated%2Cdesc" target="_blank">IMDb</a>,
+              where the ratings are purely my personal opinions. Someday I'll write down my thoughts on them too, once the laziness wears off.</li>
+            <li>I go by <strong>mvp18</strong> online, a handle I picked at 18, fresh off cracking
+            <a href="https://www.quora.com/Is-IIT-JEE-the-toughest-exam-in-the-world-What-would-it-be-ranked" target="_blank">IIT-JEE</a>. The hotshot phase didn't survive four years at IIT; the handle did. </li>
             <li>In an earlier life, I could <a href="data/deception.pdf">write</a>.</li>
             </ul>
         </td></tr>
@@ -1395,6 +1638,8 @@ th {
         <div style="margin-bottom:20px;">
           <img src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fmvp18.github.io&labelColor=%23555555&countColor=%234169e1&style=flat&label=Visitors%20since%20Apr%202026" alt="Visitor Count">
         </div>
+        <!-- MapMyVisitors world map; filled in after the page loads by the visitor-map script at the end of the body. -->
+        <div id="visitor-map" class="visitor-map"></div>
       </div>
 
       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
@@ -1646,8 +1891,205 @@ th {
 
   })();
 </script>
+<script>
+  // Paper filters: the chips under "ls research/" filter the papers by topic and type. Papers that drop out
+  // fade where they stand while the rest glide up into place (a FLIP animation), the heading's command is
+  // retyped to match, and the representative-paper highlights are paused while any filter is on.
+  (function () {
+    var bar = document.getElementById('paper-filters');
+    var list = document.getElementById('paper-list');
+    if (!bar || !list) {
+      return;
+    }
+    var entries = Array.from(list.querySelectorAll('.paper-entry'));
+    var chips = Array.from(bar.querySelectorAll('.filter-chip'));
+    var empty = list.querySelector('[data-paper-empty]');
+    var command = document.querySelector('[data-ls-args]');
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var animate = !reduceMotion && typeof list.animate === 'function';
+    var easing = 'cubic-bezier(0.33, 1, 0.68, 1)'; // ease-out cubic: a glide that settles gently
+    var glide = { duration: 700, delay: 60, easing: easing, fill: 'backwards' };
+    var state = { topic: 'all', type: 'all' };
+    var running = [];
+    var typingTimer = null;
+
+    function matches(entry, filters) {
+      var topics = (entry.getAttribute('data-topics') || '').split(/\s+/);
+      return (filters.topic === 'all' || topics.indexOf(filters.topic) !== -1) &&
+        (filters.type === 'all' || entry.getAttribute('data-type') === filters.type);
+    }
+
+    function countMatches(filters) {
+      return entries.filter(function (entry) {
+        return matches(entry, filters);
+      }).length;
+    }
+
+    // Backspace the heading's command to the part that stays, then type the rest, like editing a shell line.
+    function retype(text) {
+      clearInterval(typingTimer);
+      if (!command) {
+        return;
+      }
+      if (!animate) {
+        command.textContent = text;
+        return;
+      }
+      var current = command.textContent;
+      var keep = 0;
+      while (keep < current.length && keep < text.length && current[keep] === text[keep]) {
+        keep++;
+      }
+      var deleting = current.length > keep;
+      typingTimer = setInterval(function () {
+        var typed = command.textContent;
+        if (deleting) {
+          command.textContent = typed.slice(0, Math.max(keep, typed.length - 2));
+          deleting = command.textContent.length > keep;
+        } else if (typed.length < text.length) {
+          command.textContent = text.slice(0, typed.length + 1);
+        } else {
+          clearInterval(typingTimer);
+        }
+      }, 14);
+    }
+
+    // Each chip's count is how many papers it would show, given the other group's current choice.
+    function updateControls() {
+      var filtered = state.topic !== 'all' || state.type !== 'all';
+      chips.forEach(function (chip) {
+        var group = chip.getAttribute('data-filter');
+        var value = chip.getAttribute('data-value');
+        var pressed = state[group] === value;
+        chip.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+        var count = chip.querySelector('.chip-count');
+        if (count) {
+          var probe = { topic: state.topic, type: state.type };
+          probe[group] = value;
+          var n = countMatches(probe);
+          count.textContent = n;
+          chip.classList.toggle('is-empty', n === 0 && !pressed);
+        }
+      });
+      empty.hidden = countMatches(state) > 0;
+      document.body.classList.toggle('papers-filtered', filtered);
+      retype((state.topic === 'all' ? '' : state.topic + '/') + (state.type === 'all' ? '' : ' | grep ' + state.type));
+    }
+
+    function play(element, keyframes, options, done) {
+      var animation = element.animate(keyframes, options);
+      running.push(animation);
+      if (done) {
+        animation.onfinish = function () {
+          done(animation);
+        };
+      }
+    }
+
+    function applyFilters() {
+      // First: where each paper on screen sits right now, including any caught mid-animation.
+      var before = new Map();
+      entries.forEach(function (entry) {
+        if (!entry.classList.contains('is-filtered-out')) {
+          before.set(entry, {
+            top: entry.getBoundingClientRect().top,
+            opacity: parseFloat(window.getComputedStyle(entry).opacity)
+          });
+        }
+      });
+      var startHeight = list.getBoundingClientRect().height;
+      running.forEach(function (animation) {
+        animation.cancel();
+      });
+      running = [];
+      list.style.overflow = '';
+      entries.forEach(function (entry) {
+        entry.classList.remove('is-leaving', 'is-shifting');
+        entry.style.top = '';
+        entry.classList.toggle('is-filtered-out', !matches(entry, state));
+      });
+      updateControls();
+      if (!animate) {
+        return;
+      }
+
+      // Last, invert, play: start every paper from where it was and let it settle into the new layout.
+      var listTop = list.getBoundingClientRect().top;
+      var endHeight = list.getBoundingClientRect().height;
+      entries.forEach(function (entry) {
+        var was = before.get(entry);
+        var visible = !entry.classList.contains('is-filtered-out');
+        if (visible && was) {
+          var dy = was.top - entry.getBoundingClientRect().top;
+          if (Math.abs(dy) < 1 && was.opacity === 1) {
+            return;
+          }
+          entry.classList.add('is-shifting');
+          play(entry, [
+            { transform: 'translateY(' + dy + 'px)', opacity: was.opacity },
+            { transform: 'none', opacity: 1 }
+          ], glide, function () {
+            entry.classList.remove('is-shifting');
+          });
+        } else if (visible) {
+          entry.classList.add('is-shifting');
+          play(entry, [
+            { transform: 'translateY(16px)', opacity: 0 },
+            { transform: 'none', opacity: 1 }
+          ], { duration: 500, delay: 220, easing: easing, fill: 'backwards' }, function () {
+            entry.classList.remove('is-shifting');
+          });
+        } else if (was) {
+          // Keep it at its old spot, out of the flow, and fade it away while the others close the gap.
+          entry.classList.remove('is-filtered-out');
+          entry.classList.add('is-leaving');
+          entry.style.top = (was.top - listTop) + 'px';
+          play(entry, [
+            { transform: 'none', opacity: was.opacity },
+            { transform: 'scale(0.98)', opacity: 0 }
+          ], { duration: 280, easing: 'ease-in', fill: 'forwards' }, function (animation) {
+            entry.classList.remove('is-leaving');
+            entry.classList.add('is-filtered-out');
+            entry.style.top = '';
+            animation.cancel();
+          });
+        }
+      });
+      if (!empty.hidden) {
+        play(empty, [{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: 220, fill: 'backwards' });
+      }
+      if (Math.abs(endHeight - startHeight) >= 1) {
+        // Ease the list's height as well, so the sections below slide instead of jumping.
+        list.style.overflow = 'hidden';
+        play(list, [{ height: startHeight + 'px' }, { height: endHeight + 'px' }], glide, function () {
+          list.style.overflow = '';
+        });
+      }
+    }
+
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var group = chip.getAttribute('data-filter');
+        var value = chip.getAttribute('data-value');
+        // Clicking the active chip again clears that group.
+        var next = state[group] === value ? 'all' : value;
+        if (next === state[group]) {
+          return;
+        }
+        state[group] = next;
+        applyFilters();
+      });
+    });
+
+    updateControls();
+    bar.hidden = false;
+  })();
+</script>
 <script xml:space="preserve" language="JavaScript">
 hideallbibs();
+</script>
+<script xml:space="preserve" language="JavaScript">
+  hideblock('hexelsabs');
 </script>
 <script xml:space="preserve" language="JavaScript">
   hideblock('fureabs');
@@ -1707,6 +2149,107 @@ hideblock('gALabs');
 	  })();
 	</script>
 	
+	<script>
+	  // MapMyVisitors world map (stats: https://mapmyvisitors.com/web/1c977). map.js finds its <script id="mapmyvisitors">
+	  // tag and inserts the map right after it. The tag is only added once the page has loaded, so a slow or blocked
+	  // mapmyvisitors.com can never keep the tab loading (a stuck load turns Chrome's reload button into stop).
+	  // When the map's SVG appears, a complete local basemap (Natural Earth, public domain) is drawn inside the
+	  // widget's own coordinate group, so the visitor markers line up with it.
+	  (function () {
+	    var root = document.getElementById('visitor-map');
+	    if (!root) {
+	      return;
+	    }
+	    var mapUrl = 'images/visitor-world-map.svg';
+	    var dialog = null;
+	    var content = null;
+
+	    function installMap() {
+	      var link = root.querySelector('#mapmyvisitors-widget');
+	      if (link) {
+	        link.setAttribute('aria-label', 'View visitor statistics');
+	      }
+	      var svg = root.querySelector('.mapmyvisitors-map svg');
+	      var coordinates = svg && svg.querySelector(':scope > g[transform]');
+	      if (!coordinates || coordinates.querySelector('.visitor-map-art')) {
+	        return;
+	      }
+	      var artwork = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+	      artwork.setAttribute('class', 'visitor-map-art');
+	      artwork.setAttribute('href', mapUrl);
+	      artwork.setAttribute('width', '900');
+	      artwork.setAttribute('height', '440.70631074413296');
+	      artwork.setAttribute('pointer-events', 'none');
+	      coordinates.insertBefore(artwork, coordinates.firstChild);
+	      addExpandButton();
+	    }
+
+	    // Only offered once the small map has rendered, so a blocked widget leaves no stray button.
+	    function addExpandButton() {
+	      if (dialog) {
+	        return;
+	      }
+	      dialog = document.createElement('dialog');
+	      dialog.className = 'visitor-map-dialog';
+	      dialog.setAttribute('aria-label', 'World visitor map');
+	      var close = document.createElement('button');
+	      close.type = 'button';
+	      close.className = 'visitor-map-close';
+	      close.textContent = 'Close map';
+	      close.addEventListener('click', function () {
+	        dialog.close();
+	      });
+	      content = document.createElement('div');
+	      dialog.appendChild(close);
+	      dialog.appendChild(content);
+	      dialog.addEventListener('click', function (event) {
+	        if (event.target === dialog) {
+	          dialog.close();
+	        }
+	      });
+	      document.body.appendChild(dialog);
+
+	      var expand = document.createElement('button');
+	      expand.type = 'button';
+	      expand.className = 'visitor-map-expand';
+	      expand.textContent = 'Enlarge map';
+	      expand.addEventListener('click', showMap);
+	      root.appendChild(expand);
+	    }
+
+	    // Scale a snapshot of the live map canvas, markers included, into the dialog.
+	    function showMap() {
+	      var source = root.querySelector('.mapmyvisitors-map svg');
+	      if (!source) {
+	        return;
+	      }
+	      var snapshot = source.cloneNode(true);
+	      snapshot.setAttribute('viewBox', '0 0 ' + source.getAttribute('width') + ' ' + source.getAttribute('height'));
+	      snapshot.removeAttribute('width');
+	      snapshot.removeAttribute('height');
+	      snapshot.setAttribute('role', 'img');
+	      snapshot.setAttribute('aria-label', 'World visitor map');
+	      content.replaceChildren(snapshot);
+	      dialog.showModal();
+	    }
+
+	    function addWidget() {
+	      var script = document.createElement('script');
+	      script.id = 'mapmyvisitors';
+	      script.async = true;
+	      script.src = 'https://mapmyvisitors.com/map.js?d=dxL45N3M7E2ggkYK680LCTaiYM0v8xmgKClZsobfuuU&cl=ffffff&w=a';
+	      root.appendChild(script);
+	    }
+
+	    new MutationObserver(installMap).observe(root, { childList: true, subtree: true });
+	    if (document.readyState === 'complete') {
+	      addWidget();
+	    } else {
+	      window.addEventListener('load', addWidget);
+	    }
+	  })();
+	</script>
+
 	<!-- GoatCounter analytics (cookie-free); dashboard: https://mvp18.goatcounter.com -->
 	<script data-goatcounter="https://mvp18.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 	</body>
